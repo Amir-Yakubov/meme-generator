@@ -18,14 +18,14 @@ var gMeme = {
     lines: [
         {
             txt: 'I sometimes eat Falafel',
-            size: 20,
+            size: 50,
+            font: 'impact',
             align: 'left',
-            color: 'red'
+            bgColor: 'white',
+            strokeColor: 'black'
         }
     ]
 }
-
-gMeme.lines[0].align
 
 function onInitCanvas() {
     gElCanvas = document.querySelector('canvas')
@@ -111,10 +111,11 @@ function showCanvas() {
 function drawText(x, y, text) {
     renderCanvas()
     renderImg()
+
     gCtx.lineWidth = '1'
-    gCtx.strokeStyle = 'black'
-    gCtx.fillStyle = 'black'
-    gCtx.font = "50px arial";
+    gCtx.strokeStyle = `${gMeme.lines[0].strokeColor}`
+    gCtx.fillStyle = `${gMeme.lines[0].bgColor}`
+    gCtx.font = `${gMeme.lines[0].size}px ${gMeme.lines[0].font}`;
     gCtx.textAlign = gMeme.lines[0].align
     gCtx.textBaseline = 'middle'
 
@@ -134,9 +135,9 @@ function clearCanvas() {
 }
 
 function onAddMemeTxt(value) {
-    console.log(value)
-    const x = 100
-    const y = 100
+    // const x = 100
+    // const y = 100
+    
     drawText(x, y, value)
 }
 

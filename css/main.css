@@ -1,0 +1,32 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
+}
+
+h1 {
+    font-size: 2rem;
+    text-align: center;
+    padding: 30px;
+}
+
+.grid-container {
+    width: 90%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    align-items: center;
+    justify-items: center;
+    gap: 10px;
+}
+
+.item {
+    height: 10rem;
+    grid-area: 160px;
+    /* min-width: 160px; */
+}

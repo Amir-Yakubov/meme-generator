@@ -79,6 +79,8 @@ h1 {
 
 .canvas-container {
     margin: 0 auto;
+    height: 500px;
+    width: 500px;
 }
 
 .meme-editor {
@@ -130,6 +132,12 @@ h1 {
 
     .canvas-wrap {
         width: 100vw;
+    }
+
+    .canvas-container {
+        margin: 0 auto;
+        height: 100%;
+        width: 100%;
     }
 
     .meme-editor {

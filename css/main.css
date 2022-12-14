@@ -15,11 +15,10 @@ h1 {
 }
 
 .grid-container {
-    width: 90%;
+    /* width: 90%; */
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     align-items: center;
     justify-items: center;
     gap: 10px;
@@ -27,6 +26,4 @@ h1 {
 
 .item {
     height: 10rem;
-    grid-area: 160px;
-    /* min-width: 160px; */
 }

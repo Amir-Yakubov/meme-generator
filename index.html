@@ -14,7 +14,7 @@
         <div class="logo">Logo</div>
         <nav class="main-nav">
             <ul class="nav-links">
-                <li><a class="nav-link" href="#">Gallery</a></li>
+                <li><a class="nav-link" href="#" onclick="">Gallery</a></li>
                 <li><a class="nav-link" href="#">Memes</a></li>
                 <li><a class="nav-link" href="#">About</a></li>
             </ul>
@@ -25,34 +25,33 @@
         <input class="search-Input" type="text" onkeyup="onSearch(value)" placeHolder="Search meme...">
         <input type="file" class="img-input" name="image" onchange="onImgInput(event)" />
         <div class="gallery grid-container">
-            <img id="1" src="imgs/1.jpg" class="item item1" onclick="renderImgGallery(src, id)" />
-            <img id="1" src="imgs/2.jpg" class="item item2" onclick="renderImgGallery(src, id)" />
-            <img id="1" src="imgs/3.jpg" class="item item3" onclick="renderImgGallery(src, id)" />
-            <img id="1" src="imgs/4.jpg" class="item item4" onclick="renderImgGallery(src, id)" />
-            <img id="1" src="imgs/5.jpg" class="item item5" onclick="renderImgGallery(src, id)" />
-            <img id="1" src="imgs/6.jpg" class="item item6" onclick="renderImgGallery(src, id)" />
-            <img id="1" src="imgs/7.jpg" class="item item7" onclick="renderImgGallery(src, id)" />
-            <img id="1" src="imgs/8.jpg" class="item item8" onclick="renderImgGallery(src, id)" />
-            <img id="1" src="imgs/9.jpg" class="item item9" onclick="renderImgGallery(src, id)" />
-            <img id="1" src="imgs/10.jpg" class="item item10" onclick="renderImgGallery(src, id)" />
+            <img id="1" src="imgs/1.jpg" class="item item1" onclick="renderImgGallery(src, id), showCanvas()" />
+            <img id="1" src="imgs/2.jpg" class="item item2" onclick="renderImgGallery(src, id), showCanvas()" />
+            <img id="1" src="imgs/3.jpg" class="item item3" onclick="renderImgGallery(src, id),showCanvas()" />
+            <img id="1" src="imgs/4.jpg" class="item item4" onclick="renderImgGallery(src, id), showCanvas()" />
+            <img id="1" src="imgs/5.jpg" class="item item5" onclick="renderImgGallery(src, id), showCanvas()" />
+            <img id="1" src="imgs/6.jpg" class="item item6" onclick="renderImgGallery(src, id), showCanvas()" />
+            <img id="1" src="imgs/7.jpg" class="item item7" onclick="renderImgGallery(src, id), showCanvas()" />
+            <img id="1" src="imgs/8.jpg" class="item item8" onclick="renderImgGallery(src, id), showCanvas()" />
+            <img id="1" src="imgs/9.jpg" class="item item9" onclick="renderImgGallery(src, id), showCanvas()" />
+            <img id="1" src="imgs/10.jpg" class="item item10" onclick="renderImgGallery(src, id), showCanvas()" />
         </div>
 
         <section class="meme-editor">
-
             <div class="canvas-container">
-                <canvas id="my-canvas" height="450" width="450" onclick=""></canvas>
+                <canvas id="my-canvas" height="500" width="500" onclick=""></canvas>
             </div>
 
-            <form class="editor-form">
+            <div class="editor-form">
                 <ul class="editor-options">
                     <li><input class="editor-row input text-input" type="text" onkeyup="onAddMemeTxt(value)"
-                            placeHolder="text..."></li>
+                            placeholder="text..."></li>
                     <li class="editor-row btn-section">
                         <button class="editor-btn up">↑</button>
                         <button class="editor-btn down">↓</button>
                         <button class="editor-btn down">↓</button>
                         <button class="editor-btn plus">+</button>
-                        <button class="editor-btn bin">🗑</button>
+                        <button class="editor-btn bin" onclick="clearCanvas()">🗑</button>
                     </li>
                     <li class="editor-row btn-section">
                         <button class="editor-btn text-up">A+</button>
@@ -65,15 +64,15 @@
                             <option value="impact" selected onselect="">Impact</option>
                             <option value="ariel">Ariel</option>
                         </select>
-                        <input class="input color-input" type="color" onchange="">
-                        <input class="input color-input" type="color" onchange="">
+                        <input class="input bg-color-input" type="color" onchange="onChangeBgColor(value)">
+                        <input class="input stroke-color-input" type="color" onchange="onChangeStrokeColor(value)">
                     </li>
                     <li class="editor-row share-section">
                         <button class="editor-btn share">Share</button>
                         <button class="editor-btn download">Download</button>
                     </li>
                 </ul>
-            </form>
+            </div>
         </section>
     </section>
     <!-- <script src="js/main.js"></script> -->

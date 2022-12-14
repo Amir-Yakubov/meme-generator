@@ -81,7 +81,7 @@ h1 {
     width: 98vw;
     display: flex;
     flex-direction: row;
-    /* display: none; */
+    display: none;
 }
 
 .editor-form {

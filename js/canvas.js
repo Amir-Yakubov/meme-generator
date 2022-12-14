@@ -27,10 +27,12 @@ var gMeme = {
     ]
 }
 
+
+
 function onInitCanvas() {
     gElCanvas = document.querySelector('canvas')
     gCtx = gElCanvas.getContext('2d')
-    resizeCanvas()
+    // resizeCanvas()
     // addListeners()
     renderCanvas()
 }
@@ -62,7 +64,6 @@ function loadImageFromInput(ev, onImageReady) {
 }
 
 function renderImg(img) {
-    console.log(img)
     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
 }
 
@@ -72,13 +73,12 @@ function renderImgGallery(src, id) {
     gMeme.selectedImgId = id
     gMeme.seletedImgIdx = imgIdx
     gImgs[imgIdx].url = src
-
+    // showCanvas()
     renderImg()
 }
 
 function renderImg() {
     const src = gImgs[gMeme.seletedImgIdx].url
-    console.log(src)
     const img = new Image()
     img.src = src
     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
@@ -95,6 +95,7 @@ function findImgIdxById(id) {
 }
 
 function showCanvas() {
+
     var elMemeEditor = document.querySelector('.meme-editor')
     elMemeEditor.style.display = 'flex'
 
@@ -111,8 +112,8 @@ function showCanvas() {
 function drawText(x, y, text) {
     renderCanvas()
     renderImg()
-
-    gCtx.lineWidth = '1'
+    gMeme.lines[0].txt = text
+    gCtx.lineWidth = '2'
     gCtx.strokeStyle = `${gMeme.lines[0].strokeColor}`
     gCtx.fillStyle = `${gMeme.lines[0].bgColor}`
     gCtx.font = `${gMeme.lines[0].size}px ${gMeme.lines[0].font}`;
@@ -132,15 +133,26 @@ function clearCanvas() {
     if (!confirm('Are you sure?')) return
     gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height)
     renderCanvas()
+    renderImg()
+    const elTextInput = document.querySelector('.text-input')
+    console.log(elTextInput)
+    elTextInput.placeholder =""
 }
 
 function onAddMemeTxt(value) {
-    // const x = 100
-    // const y = 100
-    
+    const x = 50
+    const y = 50
     drawText(x, y, value)
 }
 
 function onSearch(value) { // TODO
     console.log(value)
+}
+
+function onChangeStrokeColor(color) {
+    gMeme.lines[0].strokeColor = color
+}
+
+function onChangeBgColor(color) {
+    gMeme.lines[0].bgColor = color
 }

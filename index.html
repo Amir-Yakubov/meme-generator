@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/main.css">
 </head>
 
-<body onload="">
+<body onload="onInitCanvas()">
     <header class="main-header">
         <div class="logo">Logo</div>
         <nav class="main-nav">
@@ -23,6 +23,7 @@
     <section class="main-content">
         <h1 class="main-title">Meme Generator</h1>
         <input class="search-Input" type="text" onkeyup="" placeHolder="Search meme...">
+        <input type="file" class="img-input" name="image" onchange="onImgInput(event)" />
         <div class="gallery grid-container">
             <img src="imgs/1.jpg" class="item item1" onclick="onInitCanvas()" />
             <img src="imgs/2.jpg" class="item item2" />
@@ -47,6 +48,7 @@
                     <li><input class="editor-row input text-input" type="text" onkeyup="" placeHolder="text..."></li>
                     <li class="editor-row btn-section">
                         <button class="editor-btn up">↑</button>
+                        <button class="editor-btn down">↓</button>
                         <button class="editor-btn down">↓</button>
                         <button class="editor-btn plus">+</button>
                         <button class="editor-btn bin">🗑</button>
@@ -73,7 +75,7 @@
             </form>
         </section>
     </section>
-    <script src="js/main.js"></script>
+    <!-- <script src="js/main.js"></script> -->
     <script src="js/memeController.js"></script>
     <script src="js/canvas.js"></script>
 </body>

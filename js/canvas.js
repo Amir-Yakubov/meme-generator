@@ -1,5 +1,6 @@
 'use strict'
 
+let gCurrPref
 let gElCanvas
 let gCtx
 
@@ -24,17 +25,9 @@ var gMeme = {
     ]
 }
 
+gMeme.lines[0].align
+
 function onInitCanvas() {
-    // var elMemeEditor = document.querySelector('.meme-editor')
-    // elMemeEditor.style.display = 'flex'
-
-    // var elMemeEditor = document.querySelector('.search-Input')
-    // elMemeEditor.style.display = 'none'
-
-    // var elMemeEditor = document.querySelector('.gallery')
-    // elMemeEditor.style.display = 'none'
-
-
     gElCanvas = document.querySelector('canvas')
     gCtx = gElCanvas.getContext('2d')
     resizeCanvas()
@@ -73,8 +66,79 @@ function renderImg(img) {
     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
 }
 
-function renderImgGallery(src) {
+function renderImgGallery(src, id) {
+    id = +id
+    const imgIdx = findImgIdxById(id)
+    gMeme.selectedImgId = id
+    gMeme.seletedImgIdx = imgIdx
+    console.log('src', src)
+
+    renderImg(src)
+}
+
+function renderImg(src) {
+
     const img = new Image()
     img.src = src
     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
+}
+
+function findImgById(id) {
+    const imgObj = gImgs.find(image => id === image.id)
+    return imgObj.url
+}
+
+function findImgIdxById(id) {
+    const imgObjIdx = gImgs.findIndex(image => id === image.id)
+    return imgObjIdx
+}
+
+function showCanvas() {
+    var elMemeEditor = document.querySelector('.meme-editor')
+    elMemeEditor.style.display = 'flex'
+
+    var elMemeEditor = document.querySelector('.search-Input')
+    elMemeEditor.style.display = 'none'
+
+    var elMemeEditor = document.querySelector('.img-input')
+    elMemeEditor.style.display = 'none'
+
+    var elMemeEditor = document.querySelector('.gallery')
+    elMemeEditor.style.display = 'none'
+}
+
+function drawText(x, y, text) {
+    renderCanvas()
+    renderImg(src)
+    gCtx.lineWidth = '1'
+    gCtx.strokeStyle = 'black'
+    gCtx.fillStyle = 'black'
+    gCtx.font = "50px arial";
+    gCtx.textAlign = gMeme.lines[0].align
+    gCtx.textBaseline = 'middle'
+
+    gCtx.fillText(text, x, y)
+    gCtx.strokeText(text, x, y)
+}
+
+function setColor(bgColor, strokColor) {
+    gCurrPref.bgColor = bgColor
+    gCurrPref.strokColor = strokColor
+}
+
+function clearCanvas() {
+    if (!confirm('Are you sure?')) return
+    gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height)
+    renderCanvas()
+}
+
+function onAddMemeTxt(value) {
+    console.log(value)
+    const x = 100
+    const y = 100
+    drawText(x, y, value)
+}
+
+function onSearch(value) { // TODO
+    console.log(value)
 }

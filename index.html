@@ -22,10 +22,10 @@
     </header>
     <section class="main-content">
         <h1 class="main-title">Meme Generator</h1>
-        <input class="search-Input" type="text" onkeyup="" placeHolder="Search meme...">
+        <input class="search-Input" type="text" onkeyup="onSearch(value)" placeHolder="Search meme...">
         <input type="file" class="img-input" name="image" onchange="onImgInput(event)" />
         <div class="gallery grid-container">
-            <img src="imgs/1.jpg" class="item item1" onclick="renderImgGallery(src)" />
+            <img id="1" data-idx="0" src="imgs/1.jpg" class="item item1" onclick="renderImgGallery(src, id)" />
             <img src="imgs/2.jpg" class="item item2" onclick="renderImgGallery(src)" />
             <img src="imgs/3.jpg" class="item item3" onclick="renderImgGallery(src)" />
             <img src="imgs/4.jpg" class="item item4" onclick="renderImgGallery(src)" />
@@ -45,7 +45,8 @@
 
             <form class="editor-form">
                 <ul class="editor-options">
-                    <li><input class="editor-row input text-input" type="text" onkeyup="" placeHolder="text..."></li>
+                    <li><input class="editor-row input text-input" type="text" onkeyup="onAddMemeTxt(value)"
+                            placeHolder="text..."></li>
                     <li class="editor-row btn-section">
                         <button class="editor-btn up">↑</button>
                         <button class="editor-btn down">↓</button>

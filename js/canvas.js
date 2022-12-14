@@ -17,7 +17,7 @@ var gMeme = {
     seletedImgIdx: 0,
     lines: [
         {
-            txt: 'I sometimes eat Falafel',
+            txt: '',
             size: 50,
             font: 'impact',
             align: 'left',
@@ -110,13 +110,15 @@ function showCanvas() {
     elMemeEditor.style.display = 'none'
 }
 
-function drawText(x, y, text) {
+function drawText(x = -1, y = -1, text = '') {
     renderCanvas()
     renderImg()
 
-    const lineIdx = gMeme.lines.length - 1
-    gMeme.lines[lineIdx].txt = text
-    gMeme.lines[lineIdx].location = { x, y }
+    if (x >= 0 || y >= 0) {
+        const lineIdx = gMeme.lines.length - 1
+        gMeme.lines[lineIdx].txt = text
+        gMeme.lines[lineIdx].location = { x, y }
+    }
 
     gMeme.lines.forEach(line => {
         text = line.txt
@@ -162,28 +164,32 @@ function renderText() {
 }
 
 function onChangeStrokeColor(color) {
-    gMeme.lines[0].strokeColor = color
+    const idx = gMeme.lines.length - 1
+    gMeme.lines[idx].strokeColor = color
     renderText()
 }
 
 function onChangeBgColor(color) {
-    gMeme.lines[0].bgColor = color
+    const idx = gMeme.lines.length - 1
+    gMeme.lines[idx].bgColor = color
     renderText()
 }
 
 function onChangeFont(font) {
-    gMeme.lines[0].font = font
+    const idx = gMeme.lines.length - 1
+    gMeme.lines[idx].font = font
     renderText()
 }
 
 function changeFontSize(plusOrMinus) {
-    if (plusOrMinus === '+') gMeme.lines[0].size += 3
-    else gMeme.lines[0].size -= 3
+    const idx = gMeme.lines.length - 1
+    if (plusOrMinus === '+') gMeme.lines[idx].size += 3
+    else gMeme.lines[idx].size -= 3
     renderText()
 }
 
 function onTextDone() {
-    if (gMeme.lines.length > 3) {
+    if (gMeme.lines.length === 3) {
         alert('We support up to 3 lines in MEME')
         return
     }

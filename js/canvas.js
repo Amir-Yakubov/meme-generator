@@ -1,9 +1,19 @@
 'use strict'
 
 let gElCanvas
-let  gCtx
+let gCtx
 
 function onInitCanvas() {
+    var elMemeEditor = document.querySelector('.meme-editor')
+    elMemeEditor.style.display = 'flex'
+
+    var elMemeEditor = document.querySelector('.search-Input')
+    elMemeEditor.style.display = 'none'
+
+    var elMemeEditor = document.querySelector('.gallery')
+    elMemeEditor.style.display = 'none'
+
+
     gElCanvas = document.querySelector('canvas')
     gCtx = gElCanvas.getContext('2d')
     resizeCanvas()

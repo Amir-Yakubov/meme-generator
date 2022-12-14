@@ -5,7 +5,11 @@
 }
 
 html {
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+canvas {
+    background-color: rgb(225, 225, 225);
 }
 
 h1 {
@@ -16,6 +20,10 @@ h1 {
 
 .main-content {
     text-align: center;
+}
+
+.gallery {
+    padding: 10px;
 }
 
 .grid-container {
@@ -30,6 +38,7 @@ h1 {
 
 .item {
     height: 10rem;
+    cursor: pointer;
 }
 
 .main-header {
@@ -60,4 +69,62 @@ h1 {
     font-size: 1rem;
     border-radius: 2rem;
     text-align: center;
+}
+
+.canvas-container {
+    margin: 0 auto;
+    width: 60%;
+}
+
+.meme-editor {
+    width: 98vw;
+    display: flex;
+    flex-direction: row;
+    display: none;
+}
+
+@media (max-width: 700px) {
+    .meme-editor {
+        width: 98vw;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .canvas-container {
+        width: 100vw;
+    }
+
+    .editor-form {
+        margin: 0 auto;
+        width: 100vw;
+        background-color: rgba(0, 0, 0, 0.017);
+    }
+
+}
+
+.editor-form {
+    width: 40%;
+    background-color: rgba(0, 0, 0, 0.017);
+}
+
+.editor-options {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    justify-content: space-evenly;
+    align-items: stretch;
+}
+
+.editor-row {
+    align-items: flex-start;
+}
+
+.editor-btn,
+.input {
+    font-size: 1rem;
+    border-radius: 2rem;
+    border: 1px solid rgba(0, 0, 0, 0.072);
+    padding: 8px 10px;
+    cursor: pointer;
 }

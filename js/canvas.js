@@ -69,5 +69,12 @@ function loadImageFromInput(ev, onImageReady) {
 }
 
 function renderImg(img) {
+    console.log(img)
+    gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
+}
+
+function renderImgGallery(src) {
+    const img = new Image()
+    img.src = src
     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
 }

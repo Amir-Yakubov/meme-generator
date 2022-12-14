@@ -22,7 +22,8 @@ var gMeme = {
             font: 'impact',
             align: 'left',
             bgColor: 'white',
-            strokeColor: 'black'
+            strokeColor: 'black',
+            location: { x: 50, y: 50 }
         }
     ]
 }
@@ -112,21 +113,22 @@ function showCanvas() {
 function drawText(x, y, text) {
     renderCanvas()
     renderImg()
-    gMeme.lines[0].txt = text
-    gCtx.lineWidth = '2'
-    gCtx.strokeStyle = `${gMeme.lines[0].strokeColor}`
-    gCtx.fillStyle = `${gMeme.lines[0].bgColor}`
-    gCtx.font = `${gMeme.lines[0].size}px ${gMeme.lines[0].font}`;
-    gCtx.textAlign = gMeme.lines[0].align
-    gCtx.textBaseline = 'middle'
 
-    gCtx.fillText(text, x, y)
-    gCtx.strokeText(text, x, y)
-}
+    const lineIdx = gMeme.lines.length - 1
+    gMeme.lines[lineIdx].txt = text
+    gMeme.lines[lineIdx].location = { x, y }
 
-function setColor(bgColor, strokColor) {
-    gCurrPref.bgColor = bgColor
-    gCurrPref.strokColor = strokColor
+    gMeme.lines.forEach(line => {
+        text = line.txt
+        gCtx.strokeStyle = `${line.strokeColor}`
+        gCtx.fillStyle = `${line.bgColor}`
+        gCtx.font = `${line.size}px ${line.font}`
+        gCtx.textAlign = line.align
+
+        gCtx.fillText(text, line.location.x, line.location.y)
+        gCtx.strokeText(text, line.location.x, line.location.y)
+    })
+
 }
 
 function clearCanvas() {
@@ -136,12 +138,15 @@ function clearCanvas() {
     renderImg()
     const elTextInput = document.querySelector('.text-input')
     console.log(elTextInput)
-    elTextInput.placeholder =""
+    elTextInput.value = ""
 }
 
 function onAddMemeTxt(value) {
-    const x = 50
-    const y = 50
+    let x = 50
+    let y = 50
+    if (gMeme.lines.length === 2) y = 450
+    if (gMeme.lines.length === 3) y = 250
+
     drawText(x, y, value)
 }
 
@@ -149,10 +154,55 @@ function onSearch(value) { // TODO
     console.log(value)
 }
 
+function renderText() {
+    const elTextInput = document.querySelector('.text-input')
+    const value = elTextInput.value
+
+    onAddMemeTxt(value)
+}
+
 function onChangeStrokeColor(color) {
     gMeme.lines[0].strokeColor = color
+    renderText()
 }
 
 function onChangeBgColor(color) {
     gMeme.lines[0].bgColor = color
+    renderText()
+}
+
+function onChangeFont(font) {
+    gMeme.lines[0].font = font
+    renderText()
+}
+
+function changeFontSize(plusOrMinus) {
+    if (plusOrMinus === '+') gMeme.lines[0].size += 3
+    else gMeme.lines[0].size -= 3
+    renderText()
+}
+
+function onTextDone() {
+    if (gMeme.lines.length > 3) {
+        alert('We support up to 3 lines in MEME')
+        return
+    }
+    const x = 50
+    let y = 50
+
+    if (gMeme.lines.length === 2) y = 450
+    if (gMeme.lines.length === 3) y = 250
+
+    const newLine = {
+        txt: '',
+        size: 50,
+        font: 'impact',
+        align: 'left',
+        bgColor: 'white',
+        strokeColor: 'black',
+        location: { x, y }
+    }
+    gMeme.lines.push(newLine)
+    const elTextInput = document.querySelector('.text-input')
+    elTextInput.value = ""
 }

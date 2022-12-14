@@ -50,19 +50,22 @@
                         <button class="editor-btn up">↑</button>
                         <button class="editor-btn down">↓</button>
                         <button class="editor-btn down">↓</button>
-                        <button class="editor-btn plus">+</button>
+                        <button class="editor-btn plus" onclick="onTextDone()">+</button>
                         <button class="editor-btn bin" onclick="clearCanvas()">🗑</button>
                     </li>
                     <li class="editor-row btn-section">
-                        <button class="editor-btn text-up">A+</button>
-                        <button class="editor-btn text-down">A-</button>
+                        <button class="editor-btn text-up" onclick="changeFontSize('+')">A+</button>
+                        <button class="editor-btn text-down" onclick="changeFontSize('-')">A-</button>
                         <button class="editor-btn aling-r">&#61;</button>
                         <button class="editor-btn aling-c">&#61;</button>
                         <button class="editor-btn aling-l">&#61;</button>
                     </li>
-                    <li><select class="editor-row input font-section" name="select-font" id="select-font" onchange="">
-                            <option value="impact" selected onselect="">Impact</option>
-                            <option value="ariel">Ariel</option>
+                    <li><select class="editor-row input font-section" name="select-font" id="select-font"
+                            onchange="onChangeFont(value)">
+                            <option value="impact" selected>Impact</option>
+                            <option value="assistant">Assistant</option>
+                            <option value="tahoma">Tahoma</option>
+                            <option value="arial">Ariel</option>
                         </select>
                         <input class="input bg-color-input" type="color" onchange="onChangeBgColor(value)">
                         <input class="input stroke-color-input" type="color" onchange="onChangeStrokeColor(value)">

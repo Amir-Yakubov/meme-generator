@@ -71,13 +71,14 @@ function renderImgGallery(src, id) {
     const imgIdx = findImgIdxById(id)
     gMeme.selectedImgId = id
     gMeme.seletedImgIdx = imgIdx
-    console.log('src', src)
+    gImgs[imgIdx].url = src
 
-    renderImg(src)
+    renderImg()
 }
 
-function renderImg(src) {
-
+function renderImg() {
+    const src = gImgs[gMeme.seletedImgIdx].url
+    console.log(src)
     const img = new Image()
     img.src = src
     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
@@ -109,7 +110,7 @@ function showCanvas() {
 
 function drawText(x, y, text) {
     renderCanvas()
-    renderImg(src)
+    renderImg()
     gCtx.lineWidth = '1'
     gCtx.strokeStyle = 'black'
     gCtx.fillStyle = 'black'

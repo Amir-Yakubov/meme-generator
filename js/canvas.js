@@ -9,7 +9,13 @@ var gKeywordSearchCountMap = { 'funny': 12, 'cat': 16 }
 var gImgs = [
     { id: 1, url: 'img/1.jpg', keywords: ['funny', 'tramp'] },
     { id: 2, url: 'img/2.jpg', keywords: ['cute', 'dogs'] },
-    { id: 3, url: 'img/3.jpg', keywords: ['funny', 'baby', 'dogs'] }
+    { id: 3, url: 'img/3.jpg', keywords: ['funny', 'babys', 'dogs'] },
+    { id: 4, url: 'img/4.jpg', keywords: ['cute', 'cats'] },
+    { id: 5, url: 'img/5.jpg', keywords: ['babys', 'yes', 'funny'] },
+    { id: 6, url: 'img/6.jpg', keywords: ['funny', 'history chanel'] },
+    { id: 7, url: 'img/7.jpg', keywords: ['babys', 'funny'] },
+    { id: 8, url: 'img/8.jpg', keywords: ['magician', 'purple'] },
+    { id: 9, url: 'img/9.jpg', keywords: ['funny', 'babys'] }
 ]
 
 var gMeme = {
@@ -41,7 +47,8 @@ function onInitCanvas() {
 function resizeCanvas() {
     const elContainer = document.querySelector('.canvas-container')
     gElCanvas.width = elContainer.offsetWidth
-    gElCanvas.height = elContainer.offsetHeight
+    // gElCanvas.height = elContainer.offsetHeight
+    gElCanvas.height = elContainer.offsetWidth
 }
 
 function renderCanvas() {
@@ -64,9 +71,9 @@ function loadImageFromInput(ev, onImageReady) {
     reader.readAsDataURL(ev.target.files[0])
 }
 
-function renderImg(img) {
-    gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
-}
+// function renderImg(img) {
+//     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
+// }
 
 function renderImgGallery(src, id) {
     id = +id
@@ -82,6 +89,9 @@ function renderImg() {
     const src = gImgs[gMeme.seletedImgIdx].url
     const img = new Image()
     img.src = src
+    gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
+    renderCanvas()
+    resizeCanvas()
     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
 }
 
@@ -108,6 +118,8 @@ function showCanvas() {
 
     var elMemeEditor = document.querySelector('.gallery')
     elMemeEditor.style.display = 'none'
+
+    renderImg()
 }
 
 function drawText(x = -1, y = -1, text = '') {
@@ -141,6 +153,21 @@ function clearCanvas() {
     const elTextInput = document.querySelector('.text-input')
     console.log(elTextInput)
     elTextInput.value = ""
+    resetLines()
+}
+
+function resetLines() {
+    gMeme.lines = [
+        {
+            txt: '',
+            size: 50,
+            font: 'impact',
+            align: 'left',
+            bgColor: 'white',
+            strokeColor: 'black',
+            location: { x: 50, y: 50 }
+        }
+    ]
 }
 
 function onAddMemeTxt(value) {

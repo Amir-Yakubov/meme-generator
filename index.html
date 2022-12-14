@@ -25,21 +25,23 @@
         <input class="search-Input" type="text" onkeyup="onSearch(value)" placeHolder="Search meme...">
         <input type="file" class="img-input" name="image" onchange="onImgInput(event)" />
         <div class="gallery grid-container">
-            <img id="1" src="imgs/1.jpg" class="item item1" onclick="renderImgGallery(src, id), showCanvas()" />
-            <img id="1" src="imgs/2.jpg" class="item item2" onclick="renderImgGallery(src, id), showCanvas()" />
-            <img id="1" src="imgs/3.jpg" class="item item3" onclick="renderImgGallery(src, id),showCanvas()" />
-            <img id="1" src="imgs/4.jpg" class="item item4" onclick="renderImgGallery(src, id), showCanvas()" />
-            <img id="1" src="imgs/5.jpg" class="item item5" onclick="renderImgGallery(src, id), showCanvas()" />
-            <img id="1" src="imgs/6.jpg" class="item item6" onclick="renderImgGallery(src, id), showCanvas()" />
-            <img id="1" src="imgs/7.jpg" class="item item7" onclick="renderImgGallery(src, id), showCanvas()" />
-            <img id="1" src="imgs/8.jpg" class="item item8" onclick="renderImgGallery(src, id), showCanvas()" />
-            <img id="1" src="imgs/9.jpg" class="item item9" onclick="renderImgGallery(src, id), showCanvas()" />
-            <img id="1" src="imgs/10.jpg" class="item item10" onclick="renderImgGallery(src, id), showCanvas()" />
+            <img id="1" src="imgs/1.jpg" class="item item1" onclick="showCanvas(), renderImgGallery(src, id)" />
+            <img id="2" src="imgs/2.jpg" class="item item2" onclick="renderImgGallery(src, id), showCanvas()" />
+            <img id="3" src="imgs/3.jpg" class="item item3" onclick="renderImgGallery(src, id),showCanvas()" />
+            <img id="4" src="imgs/4.jpg" class="item item4" onclick="renderImgGallery(src, id), showCanvas()" />
+            <img id="5" src="imgs/5.jpg" class="item item5" onclick="showCanvas(), renderImgGallery(src, id)" />
+            <img id="6" src="imgs/6.jpg" class="item item6" onclick="renderImgGallery(src, id), showCanvas()" />
+            <img id="7" src="imgs/7.jpg" class="item item7" onclick="renderImgGallery(src, id), showCanvas()" />
+            <img id="8" src="imgs/8.jpg" class="item item8" onclick="renderImgGallery(src, id), showCanvas()" />
+            <img id="9" src="imgs/9.jpg" class="item item9" onclick="renderImgGallery(src, id), showCanvas()" />
+            <img id="10" src="imgs/10.jpg" class="item item10" onclick="renderImgGallery(src, id), showCanvas()" />
         </div>
 
         <section class="meme-editor">
-            <div class="canvas-container">
-                <canvas id="my-canvas" height="500" width="500" onclick=""></canvas>
+            <div class="canvas-wrap">
+                <div class="canvas-container">
+                    <canvas id="my-canvas" height="500" width="500" onclick=""></canvas>
+                </div>
             </div>
 
             <div class="editor-form">

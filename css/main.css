@@ -13,7 +13,7 @@ canvas {
 }
 
 h1 {
-    font-size: 2rem;
+    font-size: 2.4rem;
     text-align: center;
     padding: 30px 30px 20px 30px;
 }
@@ -129,11 +129,11 @@ h1 {
     }
 
     .canvas-wrap {
-        width: 98vw;
+        width: 100vw;
     }
 
     .meme-editor {
-        width: 98vw;
+        width: 96vw;
         flex-direction: column;
     }
 

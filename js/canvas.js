@@ -4,12 +4,13 @@ let gCurrPref
 let gElCanvas
 let gStartPos
 let gCtx
+const STORAGE_MEMES_KEY = 'My-memes'
 
 const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
-var gKeywordSearchCountMap = { 'funny': 12, 'cat': 16 }
+let gKeywordSearchCountMap = { 'funny': 12, 'cat': 16 }
 
-var gImgs = [
-    { id: 1, url: 'img/1.jpg', keywords: ['funny', 'tramp'] },
+let gImgs = [
+    { id: 1, url: 'img/1.jpg', keywords: ['funny', 'tramp', 'politics'] },
     { id: 2, url: 'img/2.jpg', keywords: ['cute', 'dogs'] },
     { id: 3, url: 'img/3.jpg', keywords: ['funny', 'babys', 'dogs'] },
     { id: 4, url: 'img/4.jpg', keywords: ['cute', 'cats'] },
@@ -17,12 +18,16 @@ var gImgs = [
     { id: 6, url: 'img/6.jpg', keywords: ['funny', 'history chanel'] },
     { id: 7, url: 'img/7.jpg', keywords: ['babys', 'funny'] },
     { id: 8, url: 'img/8.jpg', keywords: ['magician', 'purple'] },
-    { id: 9, url: 'img/9.jpg', keywords: ['funny', 'babys'] }
+    { id: 9, url: 'img/9.jpg', keywords: ['funny', 'babys'] },
+    { id: 10, url: 'img/10.jpg', keywords: ['funny', 'obama', 'politics'] },
 ]
 
-var gMeme = {
+let gSavedMemes = []
+
+let gMeme = {
     selectedImgId: 1,
     seletedImgIdx: 0,
+    savedImgIdx: 0,
     seletedLineIdx: 0,
     lines: [
         {
@@ -361,7 +366,6 @@ function onChoseAnotherLine() {
     drawRect(rectStartX, rectStartY, rectSizeX, rectSizeY)
 }
 
-
 function onTextDone() {
     const x = gMeme.lines[gMeme.seletedLineIdx].location.x
     const y = gMeme.lines[gMeme.seletedLineIdx].location.y
@@ -387,4 +391,49 @@ function drawRect(x, y, rectSizeX, rectSizeY) {
 
     gCtx.strokeStyle = 'black'
     gCtx.strokeRect(x, y, rectSizeX, rectSizeY)
+}
+
+function downloadCanvas(elLink) {
+    const data = gElCanvas.toDataURL()
+    elLink.href = data
+}
+
+function saveCanvas() {
+    const name = prompt('Save as?')
+    const savedMeme = { name, url: gElCanvas.toDataURL("image/png") }
+    gSavedMemes = loadFromStorage(STORAGE_MEMES_KEY)
+    gSavedMemes.push(savedMeme)
+    saveToStorage(STORAGE_MEMES_KEY, gSavedMemes)
+}
+
+function loadImgFromLocalStorage() {
+    const savedMemes = localStorage.getItem(STORAGE_MEMES_KEY)
+    return savedMemes
+}
+
+function renderSavedMemes() {
+    let strHtml = ''
+    const savedMemes = loadFromStorage(STORAGE_MEMES_KEY)
+    savedMemes.forEach(savedMeme => {
+        strHtml += `
+        <img class="saved-item" src="${savedMeme.url}" />`
+    })
+
+    document.querySelector('.saved-memes').innerHTML = strHtml
+}
+
+function showSavedMemes() {
+    var elMemeEditor = document.querySelector('.meme-editor')
+    elMemeEditor.style.display = 'none'
+
+    var elMemeEditor = document.querySelector('.search-Input')
+    elMemeEditor.style.display = 'none'
+
+    var elMemeEditor = document.querySelector('.img-input')
+    elMemeEditor.style.display = 'none'
+
+    var elMemeEditor = document.querySelector('.main-gallery')
+    elMemeEditor.style.display = 'none'
+
+    renderSavedMemes()
 }

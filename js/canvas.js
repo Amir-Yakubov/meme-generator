@@ -2,6 +2,7 @@
 
 let gCurrPref
 let gElCanvas
+let gStartPos
 let gCtx
 
 const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
@@ -22,6 +23,7 @@ var gImgs = [
 var gMeme = {
     selectedImgId: 1,
     seletedImgIdx: 0,
+    seletedLineIdx: 0,
     lines: [
         {
             txt: '',
@@ -36,12 +38,9 @@ var gMeme = {
     ]
 }
 
-
-
 function onInitCanvas() {
     gElCanvas = document.querySelector('canvas')
     gCtx = gElCanvas.getContext('2d')
-    // resizeCanvas()
     addListeners()
     renderCanvas()
 }
@@ -49,37 +48,36 @@ function onInitCanvas() {
 function addListeners() {
     addMouseListeners()
     addTouchListeners()
-    //Listen for resize ev
+
     window.addEventListener('resize', () => {
         resizeCanvas()
         renderCanvas()
-
+        renderImg()
     })
 }
 
 function addMouseListeners() {
-    // gElCanvas.addEventListener('mousemove', onMove)
+    gElCanvas.addEventListener('mousemove', onMove)
     gElCanvas.addEventListener('mousedown', onDown)
-    // gElCanvas.addEventListener('mouseup', onUp)
+    gElCanvas.addEventListener('mouseup', onUp)
 }
 
 function addTouchListeners() {
-    // gElCanvas.addEventListener('touchmove', onMove)
+    gElCanvas.addEventListener('touchmove', onMove)
     gElCanvas.addEventListener('touchstart', onDown)
-    // gElCanvas.addEventListener('touchend', onUp)
+    gElCanvas.addEventListener('touchend', onUp)
 }
 
 function isLineClicked(clickedPos) {
-
     const lineIdx = gMeme.lines.findIndex(line => {
         const { x, y } = line.location
         if (clickedPos.y > (y + line.size / 2) || clickedPos.y < (y - line.size / 2)) return
-        if ((clickedPos.x < (x + line.size * 3) && clickedPos.x > (x - line.size * 3))) {
-            return line
-        }
+        if ((clickedPos.x < (x + line.size * 3) && clickedPos.x > (x - line.size * 3))) return line
     })
+    if (lineIdx === -1) return
     const wordLenght = gMeme.lines[lineIdx].txt.length
     const wordSize = gMeme.lines[lineIdx].size
+
     const rectStartX = gMeme.lines[lineIdx].location.x - (wordLenght * 30 / 2)
     const rectStartY = gMeme.lines[lineIdx].location.y - (wordSize)
     const rectSizeX = wordLenght * 30
@@ -90,19 +88,15 @@ function isLineClicked(clickedPos) {
 }
 
 function getEvPos(ev) {
-    // Gets the offset pos , the default pos
     let pos = {
         x: ev.offsetX,
         y: ev.offsetY,
     }
-    // Check if its a touch ev
+
     if (TOUCH_EVS.includes(ev.type)) {
         console.log('ev:', ev)
-        //soo we will not trigger the mouse ev
         ev.preventDefault()
-        //Gets the first touch point
         ev = ev.changedTouches[0]
-        //Calc the right pos according to the touch screen
         pos = {
             x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
             y: ev.pageY - ev.target.offsetTop - ev.target.clientTop,
@@ -112,42 +106,53 @@ function getEvPos(ev) {
 }
 
 function onDown(ev) {
-    // Get the ev pos from mouse or touch
     const pos = getEvPos(ev)
     const lineIdx = isLineClicked(pos)
     if (lineIdx === -1) return
-
     gMeme.lines[lineIdx].isDrag = true
-    //Save the pos we start from
-    // gStartPos = pos
+    gMeme.lines[lineIdx].location.x = pos.x
+    gMeme.lines[lineIdx].location.y = pos.y
+    gMeme.seletedLineIdx = lineIdx
     document.body.style.cursor = 'grabbing'
+    gStartPos = pos
+
 }
 
 function onMove(ev) {
-    const { isDrag } = getCircle()
-
+    const { isDrag } = gMeme.lines[gMeme.seletedLineIdx]
     if (!isDrag) return
 
     const pos = getEvPos(ev)
-    // Calc the delta , the diff we moved
+
     const dx = pos.x - gStartPos.x
     const dy = pos.y - gStartPos.y
-    moveCircle(dx, dy)
-    // Save the last pos , we remember where we`ve been and move accordingly
+    gMeme.lines[gMeme.seletedLineIdx].location.x += dx
+    gMeme.lines[gMeme.seletedLineIdx].location.y += dy
+
+    const { txt } = gMeme.lines[gMeme.seletedLineIdx]
+    const x = gMeme.lines[gMeme.seletedLineIdx].location.x
+    const y = gMeme.lines[gMeme.seletedLineIdx].location.y
+
     gStartPos = pos
-    // The canvas is render again after every move
-    renderCanvas()
+    drawText(x, y, txt)
+    const wordLenght = txt.length
+    const wordSize = gMeme.lines[lineIdx].size
+
+    const rectStartX = x - (wordLenght * 30 / 2)
+    const rectStartY = y - (wordSize)
+    const rectSizeX = wordLenght * 30
+    const rectSizeY = 60
+    drawRect(rectStartX, rectStartY, rectSizeX, rectSizeY)
 }
 
 function onUp() {
-    setCircleDrag(false)
+    gMeme.lines[gMeme.seletedLineIdx].isDrag = false
     document.body.style.cursor = 'grab'
 }
 
 function resizeCanvas() {
     const elContainer = document.querySelector('.canvas-container')
     gElCanvas.width = elContainer.offsetWidth
-    // gElCanvas.height = elContainer.offsetHeight
     gElCanvas.height = elContainer.offsetWidth
 }
 
@@ -178,7 +183,6 @@ function renderImgGallery(src, id) {
     const imgIdx = findImgIdxById(id)
     gMeme.seletedImgIdx = imgIdx
     gImgs[imgIdx].url = src
-    // showCanvas()
     renderImg()
 }
 
@@ -222,11 +226,9 @@ function drawText(x, y, text) {
     renderCanvas()
     renderImg()
 
-    if (x >= 0 || y >= 0) {
-        const lineIdx = gMeme.lines.length - 1
-        gMeme.lines[lineIdx].txt = text
-        gMeme.lines[lineIdx].location = { x, y }
-    }
+    const lineIdx = gMeme.lines.length - 1
+    gMeme.lines[lineIdx].txt = text
+    gMeme.lines[lineIdx].location = { x, y }
 
     gMeme.lines.forEach(line => {
         text = line.txt
@@ -268,6 +270,7 @@ function resetLines() {
 }
 
 function onAddMemeTxt(value) {
+    if (!value) return
     const x = 250
     let y = 50
     if (gMeme.lines.length === 2) y = 450
@@ -339,8 +342,10 @@ function onMoveText(upOrDown) {
     if (upOrDown === 'up') gMeme.lines[idx].location.y -= 50
     else gMeme.lines[idx].location.y += 50
 
-    const elTextInput = document.querySelector('.text-input')
-    const value = elTextInput.value
+    // const elTextInput = document.querySelector('.text-input')
+    // const value = elTextInput.value
+
+    const value = gMeme.lines[idx].txt
     drawText(gMeme.lines[idx].location.x, gMeme.lines[idx].location.y, value)
 }
 

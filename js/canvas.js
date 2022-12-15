@@ -164,18 +164,23 @@ function renderCanvas() {
 }
 
 function onImgInput(ev) {
+    showCanvas()
     loadImageFromInput(ev, renderImg)
 }
 
 function loadImageFromInput(ev, onImageReady) {
     const reader = new FileReader()
-
     reader.onload = (event) => {
         let img = new Image()
         img.src = event.target.result
+        const newImg = { id: gImgs.length + 1, url: img.src }
+        gImgs.push(newImg)
+        gMeme.selectedImgId = newImg.id
+        gMeme.seletedImgIdx = newImg.id - 1
         img.onload = () => onImageReady(img)
     }
     reader.readAsDataURL(ev.target.files[0])
+
 }
 
 function renderImgGallery(src, id) {

@@ -4,6 +4,7 @@ let gCurrPref
 let gElCanvas
 let gCtx
 
+const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 var gKeywordSearchCountMap = { 'funny': 12, 'cat': 16 }
 
 var gImgs = [
@@ -29,7 +30,8 @@ var gMeme = {
             align: 'center',
             bgColor: 'white',
             strokeColor: 'black',
-            location: { x: 50, y: 50 }
+            location: { x: 50, y: 50 },
+            isDrag: false
         }
     ]
 }
@@ -40,8 +42,106 @@ function onInitCanvas() {
     gElCanvas = document.querySelector('canvas')
     gCtx = gElCanvas.getContext('2d')
     // resizeCanvas()
-    // addListeners()
+    addListeners()
     renderCanvas()
+}
+
+function addListeners() {
+    addMouseListeners()
+    addTouchListeners()
+    //Listen for resize ev
+    window.addEventListener('resize', () => {
+        resizeCanvas()
+        renderCanvas()
+
+    })
+}
+
+function addMouseListeners() {
+    // gElCanvas.addEventListener('mousemove', onMove)
+    gElCanvas.addEventListener('mousedown', onDown)
+    // gElCanvas.addEventListener('mouseup', onUp)
+}
+
+function addTouchListeners() {
+    // gElCanvas.addEventListener('touchmove', onMove)
+    gElCanvas.addEventListener('touchstart', onDown)
+    // gElCanvas.addEventListener('touchend', onUp)
+}
+
+function isLineClicked(clickedPos) {
+
+    const lineIdx = gMeme.lines.findIndex(line => {
+        const { x, y } = line.location
+        if (clickedPos.y > (y + line.size / 2) || clickedPos.y < (y - line.size / 2)) return
+        if ((clickedPos.x < (x + line.size * 3) && clickedPos.x > (x - line.size * 3))) {
+            return line
+        }
+    })
+    const wordLenght = gMeme.lines[lineIdx].txt.length
+    const wordSize = gMeme.lines[lineIdx].size
+    const rectStartX = gMeme.lines[lineIdx].location.x - (wordLenght * 30 / 2)
+    const rectStartY = gMeme.lines[lineIdx].location.y - (wordSize)
+    const rectSizeX = wordLenght * 30
+    const rectSizeY = 60
+
+    drawRect(rectStartX, rectStartY, rectSizeX, rectSizeY)
+    return lineIdx
+}
+
+function getEvPos(ev) {
+    // Gets the offset pos , the default pos
+    let pos = {
+        x: ev.offsetX,
+        y: ev.offsetY,
+    }
+    // Check if its a touch ev
+    if (TOUCH_EVS.includes(ev.type)) {
+        console.log('ev:', ev)
+        //soo we will not trigger the mouse ev
+        ev.preventDefault()
+        //Gets the first touch point
+        ev = ev.changedTouches[0]
+        //Calc the right pos according to the touch screen
+        pos = {
+            x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
+            y: ev.pageY - ev.target.offsetTop - ev.target.clientTop,
+        }
+    }
+    return pos
+}
+
+function onDown(ev) {
+    // Get the ev pos from mouse or touch
+    const pos = getEvPos(ev)
+    const lineIdx = isLineClicked(pos)
+    if (lineIdx === -1) return
+
+    gMeme.lines[lineIdx].isDrag = true
+    //Save the pos we start from
+    // gStartPos = pos
+    document.body.style.cursor = 'grabbing'
+}
+
+function onMove(ev) {
+    const { isDrag } = getCircle()
+
+    if (!isDrag) return
+
+    const pos = getEvPos(ev)
+    // Calc the delta , the diff we moved
+    const dx = pos.x - gStartPos.x
+    const dy = pos.y - gStartPos.y
+    moveCircle(dx, dy)
+    // Save the last pos , we remember where we`ve been and move accordingly
+    gStartPos = pos
+    // The canvas is render again after every move
+    renderCanvas()
+}
+
+function onUp() {
+    setCircleDrag(false)
+    document.body.style.cursor = 'grab'
 }
 
 function resizeCanvas() {
@@ -71,10 +171,6 @@ function loadImageFromInput(ev, onImageReady) {
     reader.readAsDataURL(ev.target.files[0])
 }
 
-// function renderImg(img) {
-//     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
-// }
-
 function renderImgGallery(src, id) {
     id = +id
     gMeme.selectedImgId = id
@@ -90,7 +186,7 @@ function renderImg() {
     const src = gImgs[gMeme.seletedImgIdx].url
     const img = new Image()
     img.src = src
-
+    renderCanvas()
     resizeCanvas()
     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
 }
@@ -165,7 +261,8 @@ function resetLines() {
             align: 'center',
             bgColor: 'white',
             strokeColor: 'black',
-            location: { x: 50, y: 50 }
+            location: { x: 250, y: 50 },
+            isDrag: false
         }
     ]
 }
@@ -226,10 +323,11 @@ function onTextDone() {
         txt: '',
         size: 50,
         font: 'impact',
-        align: 'left',
+        align: 'center',
         bgColor: 'white',
         strokeColor: 'black',
-        location: { x, y }
+        location: { x, y },
+        isDrag: false
     }
     gMeme.lines.push(newLine)
     const elTextInput = document.querySelector('.text-input')
@@ -250,4 +348,11 @@ function onAlignChange(align) {
     const idx = gMeme.lines.length - 1
     gMeme.lines[idx].align = align
     renderText()
+}
+
+function drawRect(x, y, rectSizeX, rectSizeY) {
+    gCtx.beginPath()
+
+    gCtx.strokeStyle = 'black'
+    gCtx.strokeRect(x, y, rectSizeX, rectSizeY)
 }

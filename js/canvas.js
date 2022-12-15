@@ -75,13 +75,14 @@ function isLineClicked(clickedPos) {
         if ((clickedPos.x < (x + line.size * 3) && clickedPos.x > (x - line.size * 3))) return line
     })
     if (lineIdx === -1) return
+    gMeme.seletedLineIdx = lineIdx
     const wordLenght = gMeme.lines[lineIdx].txt.length
     const wordSize = gMeme.lines[lineIdx].size
 
-    const rectStartX = gMeme.lines[lineIdx].location.x - (wordLenght * 30 / 2)
+    const rectStartX = gMeme.lines[lineIdx].location.x - (wordLenght * 40 / 2)
     const rectStartY = gMeme.lines[lineIdx].location.y - (wordSize)
-    const rectSizeX = wordLenght * 30
-    const rectSizeY = 60
+    const rectSizeX = wordLenght * 40
+    const rectSizeY = 80
 
     drawRect(rectStartX, rectStartY, rectSizeX, rectSizeY)
     return lineIdx
@@ -126,22 +127,23 @@ function onMove(ev) {
 
     const dx = pos.x - gStartPos.x
     const dy = pos.y - gStartPos.y
+    gStartPos = pos
+
     gMeme.lines[gMeme.seletedLineIdx].location.x += dx
     gMeme.lines[gMeme.seletedLineIdx].location.y += dy
 
-    const { txt } = gMeme.lines[gMeme.seletedLineIdx]
+    const txt = gMeme.lines[gMeme.seletedLineIdx].txt
     const x = gMeme.lines[gMeme.seletedLineIdx].location.x
     const y = gMeme.lines[gMeme.seletedLineIdx].location.y
 
-    gStartPos = pos
     drawText(x, y, txt)
     const wordLenght = txt.length
-    const wordSize = gMeme.lines[lineIdx].size
+    const wordSize = gMeme.lines[gMeme.seletedLineIdx].size
 
-    const rectStartX = x - (wordLenght * 30 / 2)
+    const rectStartX = x - (wordLenght * 40 / 2)
     const rectStartY = y - (wordSize)
-    const rectSizeX = wordLenght * 30
-    const rectSizeY = 60
+    const rectSizeX = wordLenght * 40
+    const rectSizeY = 80
     drawRect(rectStartX, rectStartY, rectSizeX, rectSizeY)
 }
 
@@ -190,8 +192,8 @@ function renderImg() {
     const src = gImgs[gMeme.seletedImgIdx].url
     const img = new Image()
     img.src = src
-    renderCanvas()
     resizeCanvas()
+    renderCanvas()
     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
 }
 
@@ -226,7 +228,7 @@ function drawText(x, y, text) {
     renderCanvas()
     renderImg()
 
-    const lineIdx = gMeme.lines.length - 1
+    const lineIdx = gMeme.seletedLineIdx
     gMeme.lines[lineIdx].txt = text
     gMeme.lines[lineIdx].location = { x, y }
 
@@ -279,48 +281,85 @@ function onAddMemeTxt(value) {
     drawText(x, y, value)
 }
 
+function renderText() {
+    const value = gMeme.lines[gMeme.seletedLineIdx].txt
+    const x = gMeme.lines[gMeme.seletedLineIdx].location.x
+    const y = gMeme.lines[gMeme.seletedLineIdx].location.y
+    drawText(x, y, value)
+}
+
+// features
+
 function onSearch(value) { // TODO
     console.log(value)
 }
 
-function renderText() {
-    const elTextInput = document.querySelector('.text-input')
-    const value = elTextInput.value
-
-    onAddMemeTxt(value)
-}
-
 function onChangeStrokeColor(color) {
-    const idx = gMeme.lines.length - 1
+    const idx = gMeme.seletedLineIdx
     gMeme.lines[idx].strokeColor = color
     renderText()
 }
 
 function onChangeBgColor(color) {
-    const idx = gMeme.lines.length - 1
+    const idx = gMeme.seletedLineIdx
     gMeme.lines[idx].bgColor = color
     renderText()
 }
 
 function onChangeFont(font) {
-    const idx = gMeme.lines.length - 1
+    const idx = gMeme.seletedLineIdx
     gMeme.lines[idx].font = font
     renderText()
 }
 
+function onAlignChange(align) {
+    const idx = gMeme.seletedLineIdx
+    gMeme.lines[idx].align = align
+    renderText()
+}
+
 function changeFontSize(plusOrMinus) {
-    const idx = gMeme.lines.length - 1
+    const idx = gMeme.seletedLineIdx
     if (plusOrMinus === '+') gMeme.lines[idx].size += 3
     else gMeme.lines[idx].size -= 3
     renderText()
 }
 
-function onTextDone() {
-    const x = 250
-    let y = 50
+function onMoveText(upOrDown) {
+    const idx = gMeme.seletedLineIdx
+    if (upOrDown === 'up') gMeme.lines[idx].location.y -= 50
+    else gMeme.lines[idx].location.y += 50
+    const value = gMeme.lines[idx].txt
+    drawText(gMeme.lines[idx].location.x, gMeme.lines[idx].location.y, value)
+}
 
-    if (gMeme.lines.length === 2) y = 450
-    if (gMeme.lines.length > 2) y = 250
+function onChoseAnotherLine() {
+    gMeme.seletedLineIdx += 1
+    if (gMeme.seletedLineIdx > (gMeme.lines.length - 1)) gMeme.seletedLineIdx = 0
+
+    const txt = gMeme.lines[gMeme.seletedLineIdx].txt
+    if (txt === '') return
+
+    const wordLenght = txt.length
+    const wordSize = gMeme.lines[gMeme.seletedLineIdx].size
+    const x = gMeme.lines[gMeme.seletedLineIdx].location.x
+    const y = gMeme.lines[gMeme.seletedLineIdx].location.y
+
+    const rectStartX = x - (wordLenght * 40 / 2)
+    const rectStartY = y - (wordSize)
+    const rectSizeX = wordLenght * 40
+    const rectSizeY = 80
+
+    renderCanvas()
+    renderImg()
+    renderText()
+    drawRect(rectStartX, rectStartY, rectSizeX, rectSizeY)
+}
+
+
+function onTextDone() {
+    const x = gMeme.lines[gMeme.seletedLineIdx].location.x
+    const y = gMeme.lines[gMeme.seletedLineIdx].location.y
 
     const newLine = {
         txt: '',
@@ -333,26 +372,9 @@ function onTextDone() {
         isDrag: false
     }
     gMeme.lines.push(newLine)
+    gMeme.seletedLineIdx += 1
     const elTextInput = document.querySelector('.text-input')
     elTextInput.value = ""
-}
-
-function onMoveText(upOrDown) {
-    const idx = gMeme.lines.length - 1
-    if (upOrDown === 'up') gMeme.lines[idx].location.y -= 50
-    else gMeme.lines[idx].location.y += 50
-
-    // const elTextInput = document.querySelector('.text-input')
-    // const value = elTextInput.value
-
-    const value = gMeme.lines[idx].txt
-    drawText(gMeme.lines[idx].location.x, gMeme.lines[idx].location.y, value)
-}
-
-function onAlignChange(align) {
-    const idx = gMeme.lines.length - 1
-    gMeme.lines[idx].align = align
-    renderText()
 }
 
 function drawRect(x, y, rectSizeX, rectSizeY) {

@@ -26,7 +26,7 @@ var gMeme = {
             txt: '',
             size: 50,
             font: 'impact',
-            align: 'left',
+            align: 'center',
             bgColor: 'white',
             strokeColor: 'black',
             location: { x: 50, y: 50 }
@@ -77,8 +77,9 @@ function loadImageFromInput(ev, onImageReady) {
 
 function renderImgGallery(src, id) {
     id = +id
-    const imgIdx = findImgIdxById(id)
     gMeme.selectedImgId = id
+
+    const imgIdx = findImgIdxById(id)
     gMeme.seletedImgIdx = imgIdx
     gImgs[imgIdx].url = src
     // showCanvas()
@@ -89,8 +90,7 @@ function renderImg() {
     const src = gImgs[gMeme.seletedImgIdx].url
     const img = new Image()
     img.src = src
-    gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
-    renderCanvas()
+
     resizeCanvas()
     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
 }
@@ -122,7 +122,7 @@ function showCanvas() {
     renderImg()
 }
 
-function drawText(x = -1, y = -1, text = '') {
+function drawText(x, y, text) {
     renderCanvas()
     renderImg()
 
@@ -162,7 +162,7 @@ function resetLines() {
             txt: '',
             size: 50,
             font: 'impact',
-            align: 'left',
+            align: 'center',
             bgColor: 'white',
             strokeColor: 'black',
             location: { x: 50, y: 50 }
@@ -171,10 +171,10 @@ function resetLines() {
 }
 
 function onAddMemeTxt(value) {
-    let x = 50
+    const x = 250
     let y = 50
     if (gMeme.lines.length === 2) y = 450
-    if (gMeme.lines.length === 3) y = 250
+    if (gMeme.lines.length > 2) y = 250
 
     drawText(x, y, value)
 }
@@ -216,15 +216,11 @@ function changeFontSize(plusOrMinus) {
 }
 
 function onTextDone() {
-    if (gMeme.lines.length === 3) {
-        alert('We support up to 3 lines in MEME')
-        return
-    }
-    const x = 50
+    const x = 250
     let y = 50
 
     if (gMeme.lines.length === 2) y = 450
-    if (gMeme.lines.length === 3) y = 250
+    if (gMeme.lines.length > 2) y = 250
 
     const newLine = {
         txt: '',
@@ -238,4 +234,20 @@ function onTextDone() {
     gMeme.lines.push(newLine)
     const elTextInput = document.querySelector('.text-input')
     elTextInput.value = ""
+}
+
+function onMoveText(upOrDown) {
+    const idx = gMeme.lines.length - 1
+    if (upOrDown === 'up') gMeme.lines[idx].location.y -= 50
+    else gMeme.lines[idx].location.y += 50
+
+    const elTextInput = document.querySelector('.text-input')
+    const value = elTextInput.value
+    drawText(gMeme.lines[idx].location.x, gMeme.lines[idx].location.y, value)
+}
+
+function onAlignChange(align) {
+    const idx = gMeme.lines.length - 1
+    gMeme.lines[idx].align = align
+    renderText()
 }

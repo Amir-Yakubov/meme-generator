@@ -49,8 +49,8 @@
                     <li><input class="editor-row input text-input" type="text" onkeyup="onAddMemeTxt(value)"
                             placeholder="text..."></li>
                     <li class="editor-row btn-section">
-                        <button class="editor-btn up">↑</button>
-                        <button class="editor-btn down">↓</button>
+                        <button class="editor-btn up" onclick="onMoveText('up')">↑</button>
+                        <button class="editor-btn down" onclick="onMoveText('down')">↓</button>
                         <button class="editor-btn down">↓</button>
                         <button class="editor-btn plus" onclick="onTextDone()">+</button>
                         <button class="editor-btn bin" onclick="clearCanvas()">🗑</button>
@@ -58,9 +58,9 @@
                     <li class="editor-row btn-section">
                         <button class="editor-btn text-up" onclick="changeFontSize('+')">A+</button>
                         <button class="editor-btn text-down" onclick="changeFontSize('-')">A-</button>
-                        <button class="editor-btn aling-r">&#61;</button>
-                        <button class="editor-btn aling-c">&#61;</button>
-                        <button class="editor-btn aling-l">&#61;</button>
+                        <button class="editor-btn aling-r" onclick="onAlignChange('right')">&#61;</button>
+                        <button class="editor-btn aling-c" onclick="onAlignChange('center')">&#61;</button>
+                        <button class="editor-btn aling-l" onclick="onAlignChange('left')">&#61;</button>
                     </li>
                     <li><select class="editor-row input font-section" name="select-font" id="select-font"
                             onchange="onChangeFont(value)">

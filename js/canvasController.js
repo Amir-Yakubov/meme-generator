@@ -162,7 +162,10 @@ function showCanvas() {
     var elMemeEditor = document.querySelector('.meme-editor')
     elMemeEditor.style.display = 'flex'
 
-    var elMemeEditor = document.querySelector('.search-Input')
+    var elMemeEditor = document.querySelector('.search-wrap')
+    elMemeEditor.style.display = 'none'
+
+    var elMemeEditor = document.querySelector('.hashtag')
     elMemeEditor.style.display = 'none'
 
     var elMemeEditor = document.querySelector('.gallery')

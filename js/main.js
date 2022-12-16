@@ -6,6 +6,7 @@ function onInit() {
     onInitSearch()
     onInitCanvas()
     renderGallery()
+    renderHashtags()
 }
 
 function renderGallery(imgs = getGImgs()) {
@@ -13,7 +14,6 @@ function renderGallery(imgs = getGImgs()) {
     <label for="img-upload" class="item img-upload">Custom Upload
     <input type="file" id="img-upload" name="image" onchange="onImgInput(event)" /></label>`
 
-    // const imgs = getGImgs()
     imgs.forEach(img => {
         const src = img.url
         const id = img.id
@@ -22,7 +22,32 @@ function renderGallery(imgs = getGImgs()) {
     document.querySelector('.main-gallery').innerHTML = strHtml
 }
 
-// features - gallery
+function renderHashtags() {
+    const keywords = getMemesKeywords()
+    const keysCountMap = getGKeywordSearchCountMap()
+
+    let fontSize = 16
+    let strHtml = `<li class="tag" onclick="onSearchByHashtag('clear')">clear</li>`
+
+    keywords.forEach(keyWord => {
+        if (keysCountMap[keyWord] < 3 || !keysCountMap[keyWord]) return
+        fontSize += (keysCountMap[keyWord] * 2)
+        strHtml += `
+        <li class="tag" style="font-size:${fontSize}px;" onclick="onSearchByHashtag('${keyWord}')">${keyWord}</li>
+        `
+        fontSize = 16
+    })
+    document.querySelector('.hashtag').innerHTML = strHtml
+}
+
+function filterImgsByKewword(key) {
+    const imgs = getGImgs()
+    const filteredImgs = imgs.filter(img => {
+        const res = img.keywords.includes(key)
+        if (res === true) return img
+    })
+    return filteredImgs
+}
 
 function onInitSearch() {
     const searchWrapper = document.querySelector('.search-input')
@@ -53,9 +78,36 @@ function select(element) {
     const inputBox = document.querySelector('.input-search')
     let selectUserData = element.textContent
     if (selectUserData === '') return renderGallery()
+    updateKeywordCountMap(selectUserData)
     const filteredImges = filterImgsByKewword(selectUserData)
     renderGallery(filteredImges)
     inputBox.value = selectUserData
+}
+
+function updateKeywordCountMap(searchedKeys) {
+    const keywordSearchCountMap = getGKeywordSearchCountMap()
+    if (!keywordSearchCountMap[searchedKeys]) keywordSearchCountMap[searchedKeys] = 0
+    keywordSearchCountMap[searchedKeys] += 1
+    renderHashtags()
+}
+
+function onSearchByIcon() {
+    const inputBox = document.querySelector('.input-search')
+    updateKeywordCountMap(inputBox.value)
+    const filteredImges = filterImgsByKewword(inputBox.value)
+    renderGallery(filteredImges)
+}
+
+function onSearchByHashtag(key) {
+    const inputBox = document.querySelector('.input-search')
+    if (key === 'clear') {
+        inputBox.value = ''
+        return renderGallery()
+    }
+    updateKeywordCountMap(key)
+    const filteredImges = filterImgsByKewword(key)
+    renderGallery(filteredImges)
+    inputBox.value = key
 }
 
 function onEmptySearchBar() {
@@ -126,11 +178,4 @@ function renderSavedMemes() {
     document.querySelector('.saved-memes').innerHTML = strHtml
 }
 
-function filterImgsByKewword(key) {
-    const imgs = getGImgs()
-    const filteredImgs = imgs.filter(img => {
-        const res = img.keywords.includes(key)
-        if (res === true) return img
-    })
-    return filteredImgs
-}
+

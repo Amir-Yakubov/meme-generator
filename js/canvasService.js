@@ -7,8 +7,7 @@ let gCtx
 const STORAGE_MEMES_KEY = 'My-memes'
 
 const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
-let gKeywordSearchCountMap = { 'funny': 12, 'cat': 16 }
-let gKeyWords = ['funny', 'tramp', 'politics', 'cute', 'babys', 'dogs', 'cats', 'yes', 'history chanel', 'magician', 'purple', 'obama']
+let gKeywordSearchCountMap = { 'funny': 7, 'cats': 5 , 'dogs': 12}
 
 let gImgs = [
     { id: 1, url: 'imgs/1.jpg', keywords: ['funny', 'tramp', 'politics'] },
@@ -22,6 +21,8 @@ let gImgs = [
     { id: 9, url: 'imgs/9.jpg', keywords: ['funny', 'babys'] },
     { id: 10, url: 'imgs/10.jpg', keywords: ['funny', 'obama', 'politics'] },
 ]
+
+let gKeyWords = getMemesKeywords()
 
 let gSavedMemes = []
 
@@ -41,6 +42,20 @@ let gMeme = {
             isDrag: false
         }
     ]
+}
+
+function getMemesKeywords() {
+    const keywords = []
+    gImgs.forEach(imgObj => {
+        imgObj.keywords.forEach(key => { keywords.push(key) })
+    })
+    let uniqueKeys = [...new Set(keywords)]
+    console.log(uniqueKeys)
+    return uniqueKeys
+}
+
+function getGKeywordSearchCountMap() {
+    return gKeywordSearchCountMap
 }
 
 function getGMeme() {

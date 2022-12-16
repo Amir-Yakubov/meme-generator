@@ -140,12 +140,12 @@ label.item.img-upload {
     padding: 60px 10px;
     width: 160px;
     height: 160px;
-    background-color: rgba(0, 0, 0, 0.142);
+    background-color: rgb(221, 221, 221);
 }
 
 .search-wrap {
     max-width: 450px;
-    margin: 50px auto;
+    margin: 30px auto;
 }
 
 .search-wrap .search-input {
@@ -211,6 +211,20 @@ label.item.img-upload {
     background: #efefef;
 }
 
+.hashtag {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    width: 50vw;
+    margin: 0 auto;
+    align-items: center;
+}
+
+.tag {
+    padding: 20px;
+    cursor: pointer;
+}
+
 @media (max-width: 860px) {
     html {
         font-size: 16px;
@@ -247,6 +261,7 @@ label.item.img-upload {
         display: flex;
         justify-content: space-evenly;
     }
+
 }
 
 @media (max-width: 760px) {

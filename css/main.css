@@ -27,6 +27,7 @@ h1 {
 }
 
 .grid-container {
+    width: 70vw;
     padding-top: 10px;
     margin: 0 auto;
     display: grid;
@@ -34,6 +35,17 @@ h1 {
     align-items: center;
     justify-items: center;
     gap: 10px;
+}
+
+.item {
+    height: 10rem;
+    cursor: pointer;
+    transition: transform .2s;
+    border-radius: 3%;
+}
+
+.item:hover {
+    transform: scale(1.2);
 }
 
 .item {
@@ -119,6 +131,20 @@ h1 {
     margin-bottom: 10px;
 }
 
+.saved-item {
+    width: 160px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+label.item.img-upload {
+    padding: 60px 10px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.142);
+}
+
 @media (max-width: 860px) {
     html {
         font-size: 16px;
@@ -155,6 +181,10 @@ h1 {
         display: flex;
         justify-content: space-evenly;
     }
+}
 
-
+@media (max-width: 760px) {
+    .grid-container {
+        width: 100vw;
+    }
 }

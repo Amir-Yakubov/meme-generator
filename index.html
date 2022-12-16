@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/main.css">
 </head>
 
-<body onload="onInitCanvas()">
+<body onload="onInit()">
     <header class="main-header">
         <div class="logo">Logo</div>
         <nav class="main-nav">
@@ -23,18 +23,8 @@
     <section class="main-content">
         <h1 class="main-title">Meme Generator</h1>
         <input class="search-Input" type="text" onkeyup="onSearch(value)" placeHolder="Search meme...">
-        <input type="file" class="img-input" name="image" onchange="onImgInput(event)" />
+        <!-- <input type="file" class="img-input" name="image" onchange="onImgInput(event)" /> -->
         <div class="gallery grid-container main-gallery">
-            <img id="1" src="imgs/1.jpg" class="item item1" onclick="showCanvas(), renderImgGallery(src, id)" />
-            <img id="2" src="imgs/2.jpg" class="item item2" onclick="showCanvas(), renderImgGallery(src, id)" />
-            <img id="3" src="imgs/3.jpg" class="item item3" onclick="showCanvas(), renderImgGallery(src, id)" />
-            <img id="4" src="imgs/4.jpg" class="item item4" onclick="showCanvas(), renderImgGallery(src, id)" />
-            <img id="5" src="imgs/5.jpg" class="item item5" onclick="showCanvas(), renderImgGallery(src, id)" />
-            <img id="6" src="imgs/6.jpg" class="item item6" onclick="showCanvas(), renderImgGallery(src, id)" />
-            <img id="7" src="imgs/7.jpg" class="item item7" onclick="showCanvas(), renderImgGallery(src, id)" />
-            <img id="8" src="imgs/8.jpg" class="item item8" onclick="showCanvas(), renderImgGallery(src, id)" />
-            <img id="9" src="imgs/9.jpg" class="item item9" onclick="showCanvas(), renderImgGallery(src, id)" />
-            <img id="10" src="imgs/10.jpg" class="item item10" onclick="showCanvas(), renderImgGallery(src, id)" />
         </div>
 
         <section class="meme-editor">
@@ -56,11 +46,11 @@
                         <button class="editor-btn bin" onclick="clearCanvas()">🗑</button>
                     </li>
                     <li class="editor-row btn-section">
-                        <button class="editor-btn text-up" onclick="changeFontSize('+')">A+</button>
-                        <button class="editor-btn text-down" onclick="changeFontSize('-')">A-</button>
-                        <button class="editor-btn aling-r" onclick="onAlignChange('right')">&#61;</button>
-                        <button class="editor-btn aling-c" onclick="onAlignChange('center')">&#61;</button>
-                        <button class="editor-btn aling-l" onclick="onAlignChange('left')">&#61;</button>
+                        <button class="editor-btn text-up" onclick="onChangeFontSize('+')">A+</button>
+                        <button class="editor-btn text-down" onclick="onChangeFontSize('-')">A-</button>
+                        <button class="editor-btn aling-r" onclick="onChangeAlign('right')">&#61;</button>
+                        <button class="editor-btn aling-c" onclick="onChangeAlign('center')">&#61;</button>
+                        <button class="editor-btn aling-l" onclick="onChangeAlign('left')">&#61;</button>
                     </li>
                     <li><select class="editor-row input font-section" name="select-font" id="select-font"
                             onchange="onChangeFont(value)">
@@ -73,7 +63,7 @@
                         <input class="input stroke-color-input" type="color" onchange="onChangeStrokeColor(value)">
                     </li>
                     <li class="editor-row share-section">
-                        <button class="editor-btn share">Share</button>
+                        <button class="editor-btn share" onclick="onShareFacebook()">Share</button>
                         <button class="editor-btn download" onclick="saveCanvas()">Save</button>
                         <button class="editor-btn download"><a href="#" onclick="downloadCanvas(this)"
                                 download="my-img">Download</a></button>
@@ -88,9 +78,9 @@
             </div>
         </section>
     </section>
-    <!-- <script src="js/main.js"></script> -->
-    <script src="js/memeController.js"></script>
-    <script src="js/canvas.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/canvasController.js"></script>
+    <script src="js/canvasService.js"></script>
     <script src="js/storage.js"></script>
 </body>
 

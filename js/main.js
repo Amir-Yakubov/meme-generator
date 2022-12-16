@@ -185,10 +185,13 @@ function showSavedMemes() {
     var elMemeEditor = document.querySelector('.meme-editor')
     elMemeEditor.style.display = 'none'
 
-    var elMemeEditor = document.querySelector('.search-Input')
+    var elMemeEditor = document.querySelector('.search-wrap')
     elMemeEditor.style.display = 'none'
 
-    var elMemeEditor = document.querySelector('.img-input')
+    var elMemeEditor = document.querySelector('.img-upload')
+    elMemeEditor.style.display = 'none'
+
+    var elMemeEditor = document.querySelector('.hashtag')
     elMemeEditor.style.display = 'none'
 
     var elMemeEditor = document.querySelector('.main-gallery')

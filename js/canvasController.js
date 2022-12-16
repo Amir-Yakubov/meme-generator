@@ -40,6 +40,7 @@ function renderCanvas() {
 function clearCanvas() {
     if (!confirm('Are you sure?')) return
     gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height)
+    gMeme.seletedLineIdx = 0
     clearPlaceHolder()
     renderCanvas()
     renderImg()
@@ -89,13 +90,9 @@ function drawRect(x, y, rectSizeX, rectSizeY) {
     gCtx.strokeRect(x, y, rectSizeX, rectSizeY)
 }
 
-function drawSticker() {
-    gStickers[1]
-    drawText(x, y, gStickers[1])
-}
-
-function renderStickers(){
-    
+function drawSticker(sticker) {
+    onTextDone(sticker)
+    drawText(250, 250, sticker)
 }
 
 // user engagement
@@ -303,12 +300,12 @@ function drawFrame() {
     drawRect(rectStartX, rectStartY, rectSizeX, rectSizeY)
 }
 
-function onTextDone() {
+function onTextDone(txt = '') {
     const x = gMeme.lines[gMeme.seletedLineIdx].location.x
     const y = gMeme.lines[gMeme.seletedLineIdx].location.y
 
     const newLine = {
-        txt: '',
+        txt,
         size: 50,
         font: 'impact',
         align: 'center',
@@ -351,4 +348,32 @@ function onSuccess(uploadedImgUrl) {
     window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}`)
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+var slideIndex = 1;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+    showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+    showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+    var i;
+    var slides = document.getElementsByClassName("mySlides");
+    var dots = document.getElementsByClassName("dot");
+    if (n > slides.length) { slideIndex = 1 }
+    if (n < 1) { slideIndex = slides.length }
+    for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+    }
+    for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex - 1].style.display = "block";
+    dots[slideIndex - 1].className += " active";
+}
 

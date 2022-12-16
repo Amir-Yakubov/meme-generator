@@ -11,7 +11,7 @@
 
 <body onload="onInit()">
     <header class="main-header">
-        <div class="logo">Logo</div>
+        <div class="logo"><img class="logo-img" src="/imgs/LOGO.png"></div>
         <nav class="main-nav">
             <ul class="nav-links">
                 <li class="nav-li"><a class="nav-link" href="index.html">Gallery</a></li>
@@ -21,8 +21,6 @@
         </nav>
     </header>
     <section class="main-content">
-        <h1 class="main-title">Meme Generator</h1>
-
         <div class="search-wrap">
             <div class="search-input" onkeyup="onEmptySearchBar()">
                 <input class="input-search" id="search-meme" type="text" placeHolder="Search meme...">
@@ -73,6 +71,37 @@
                         </select>
                         <input class="input bg-color-input" type="color" onchange="onChangeBgColor(value)">
                         <input class="input stroke-color-input" type="color" onchange="onChangeStrokeColor(value)">
+                    </li>
+                    <li class="steckir-slide">
+                        <div class="slideshow-container">
+
+                            <div class="mySlides">
+                                <div class="sticker" onclick="drawSticker('💡')">💡</div>
+                                <div class="sticker" onclick="drawSticker('😛')">😛</div>
+                                <div class="sticker" onclick="drawSticker('👀')">👀</div>
+                            </div>
+
+                            <div class="mySlides">
+                                <div class="sticker" onclick="drawSticker('💋')">💋</div>
+                                <div class="sticker" onclick="drawSticker('❤️')">❤️</div>
+                                <div class="sticker" onclick="drawSticker('🔥')">🔥</div>
+                            </div>
+
+                            <div class="mySlides">
+                                <div class="sticker" onclick="drawSticker('🍺')">🍺</div>
+                                <div class="sticker" onclick="drawSticker('🌭')">🌭</div>
+                                <div class="sticker" onclick="drawSticker('🕶️')">🕶️</div>
+                            </div>
+
+                            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                        </div>
+
+                        <div class="dot-container">
+                            <span class="dot" onclick="currentSlide(1)"></span>
+                            <span class="dot" onclick="currentSlide(2)"></span>
+                            <span class="dot" onclick="currentSlide(3)"></span>
+                        </div>
                     </li>
                     <li class="editor-row share-section">
                         <button class="editor-btn share" onclick="onShareFacebook()">Share</button>

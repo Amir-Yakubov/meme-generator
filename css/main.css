@@ -8,6 +8,7 @@ html {
     /* font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
     font-family: assistant;
     cursor: default;
+    font-size: 20px;
 }
 
 canvas {
@@ -28,35 +29,27 @@ h1 {
     padding: 10px;
 }
 
-.main-gallery {
-    z-index: 0;
-}
-
 .grid-container {
-    width: 53vw;
+    width: 60vw;
     padding-top: 10px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(142px, 1fr));
     align-items: center;
     justify-items: center;
     gap: 10px;
 }
 
 .item {
-    height: 10rem;
+    height: 140px;
     cursor: pointer;
     transition: transform .2s;
     border-radius: 3%;
+    cursor: pointer;
 }
 
 .item:hover {
-    transform: scale(1.2);
-}
-
-.item {
-    height: 10rem;
-    cursor: pointer;
+    transform: scale(1.05);
 }
 
 .main-header {
@@ -67,8 +60,12 @@ h1 {
 }
 
 .logo {
-    font-size: 3rem;
+    /* font-size: 3rem; */
     padding: 30px 0 30px 30px;
+}
+
+.logo-img {
+    height: 60px
 }
 
 .nav-links {
@@ -129,6 +126,10 @@ h1 {
     margin-bottom: 10px;
 }
 
+.editor-btn {
+    font-size: 1.8rem;
+}
+
 .saved-item {
     width: 160px;
 }
@@ -139,8 +140,8 @@ input[type="file"] {
 
 label.item.img-upload {
     padding: 60px 10px;
-    width: 160px;
-    height: 160px;
+    width: 140px;
+    height: 140px;
     background-color: rgb(221, 221, 221);
 }
 
@@ -251,6 +252,87 @@ label.item.img-upload {
     font-weight: 500;
 }
 
+.sticker {
+    font-size: 5rem;
+    display: inline-block;
+    vertical-align: text-bottom;
+}
+
+/* slider */
+
+/* ///////////////////////////////////////////////////////////// */
+
+/* Slideshow container */
+.slideshow-container {
+    position: relative;
+    background: #f1f1f1f1;
+}
+
+/* Slides */
+.mySlides {
+    display: none;
+    padding: 5px;
+    text-align: center;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -30px;
+    padding: 16px;
+    color: #888;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+    right: 0;
+}
+
+.prev {
+    left: 0;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+}
+
+/* The dot/bullet/indicator container */
+.dot-container {
+    text-align: center;
+    padding: 5px;
+    background: #f1f1f1f1;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+    cursor: pointer;
+    height: 0.5rem;
+    width: 0.5rem;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+/* Add a background color to the active dot/circle */
+.active,
+.dot:hover {
+    background-color: #717171;
+}
+
+/* ////////////////////////////////////////////////////////////// */
 
 @media (max-width: 860px) {
     html {

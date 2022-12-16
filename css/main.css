@@ -7,6 +7,7 @@
 html {
     /* font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
     font-family: assistant;
+    cursor: default;
 }
 
 canvas {
@@ -223,7 +224,33 @@ label.item.img-upload {
 .tag {
     padding: 20px;
     cursor: pointer;
+    transition: color .3s;
 }
+
+.tag:hover {
+    color: rgba(0, 0, 0, 0.3);
+}
+
+.more-hashtag {
+    flex-wrap: wrap;
+}
+
+.clear-tag {
+    color: red;
+    font-size: 1.3rem;
+}
+
+.more-tag {
+    color: rgb(68, 142, 215);
+    font-size: 1.3rem;
+}
+
+.hide-tag {
+    color: rgb(68, 142, 215);
+    font-size: 1.3rem;
+    font-weight: 500;
+}
+
 
 @media (max-width: 860px) {
     html {
@@ -260,6 +287,11 @@ label.item.img-upload {
     .nav-li {
         display: flex;
         justify-content: space-evenly;
+    }
+
+    .hashtag {
+        width: 100%;
+        flex-wrap: wrap;
     }
 
 }

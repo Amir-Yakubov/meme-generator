@@ -35,7 +35,7 @@ let gMeme = {
     lines: [
         {
             txt: '',
-            size: 50,
+            size: 40,
             font: 'impact',
             align: 'center',
             bgColor: 'white',

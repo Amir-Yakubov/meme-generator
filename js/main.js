@@ -27,7 +27,7 @@ function renderHashtags() {
     const keysCountMap = getGKeywordSearchCountMap()
 
     let fontSize = 16
-    let strHtml = `<li class="tag" onclick="onSearchByHashtag('clear')">clear</li>`
+    let strHtml = ``
 
     keywords.forEach(keyWord => {
         if (keysCountMap[keyWord] < 3 || !keysCountMap[keyWord]) return
@@ -37,7 +37,37 @@ function renderHashtags() {
         `
         fontSize = 16
     })
+    strHtml += `
+    <li class="tag more-tag" onclick="onOpenMoreHashtag()">More</li>
+    <li class="tag clear-tag" onclick="onSearchByHashtag('clear')">Clear</li>`
+
     document.querySelector('.hashtag').innerHTML = strHtml
+}
+
+function onOpenMoreHashtag() {
+    const keywords = getMemesKeywords()
+    const keysCountMap = getGKeywordSearchCountMap()
+    let strHtml = ``
+    let fontSize = 16
+
+    keywords.forEach(keyWord => {
+        if (keysCountMap[keyWord] > 2) return
+        if (!keysCountMap[keyWord]) keysCountMap[keyWord] = 0
+        fontSize += (keysCountMap[keyWord] * 2)
+        strHtml += `
+        <li class="tag" style="font-size:${fontSize}px;" onclick="onSearchByHashtag('${keyWord}')">${keyWord}</li>
+        `
+        fontSize = 16
+    })
+    strHtml += `<li class="tag hide-tag" onclick="onHideMoreHashtag()">Hide</li>`
+    document.querySelector('.more-hashtag').style.display = 'flex'
+    document.querySelector('.more-hashtag').innerHTML = strHtml
+    document.querySelector('.more-tag').style.display = 'none'
+}
+
+function onHideMoreHashtag() {
+    document.querySelector('.more-hashtag').style.display = 'none'
+    document.querySelector('.more-tag').style.display = 'inline-block'
 }
 
 function filterImgsByKewword(key) {

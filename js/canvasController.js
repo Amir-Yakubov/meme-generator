@@ -159,20 +159,14 @@ function getClickedLineIdx(clickedPos) {
 // render
 
 function showCanvas() {
-
     var elMemeEditor = document.querySelector('.meme-editor')
     elMemeEditor.style.display = 'flex'
 
     var elMemeEditor = document.querySelector('.search-Input')
     elMemeEditor.style.display = 'none'
 
-    var elMemeEditor = document.querySelector('.img-input')
-    elMemeEditor.style.display = 'none'
-
     var elMemeEditor = document.querySelector('.gallery')
     elMemeEditor.style.display = 'none'
-
-    // renderImg()
 }
 
 function renderImgGallery(src, id) {

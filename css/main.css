@@ -5,7 +5,8 @@
 }
 
 html {
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    /* font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
+    font-family: assistant;
 }
 
 canvas {
@@ -27,7 +28,7 @@ h1 {
 }
 
 .grid-container {
-    width: 70vw;
+    width: 53vw;
     padding-top: 10px;
     margin: 0 auto;
     display: grid;
@@ -74,14 +75,6 @@ h1 {
 
 .nav-link {
     padding: 8px;
-}
-
-.search-Input {
-    /* font-family: ariel, sans-serif; */
-    font-size: 1rem;
-    border-radius: 2rem;
-    text-align: center;
-    padding: 8px 10px;
 }
 
 .canvas-wrap {
@@ -141,8 +134,77 @@ input[type="file"] {
 
 label.item.img-upload {
     padding: 60px 10px;
-    width: 100%;
+    width: 160px;
+    height: 160px;
     background-color: rgba(0, 0, 0, 0.142);
+}
+
+.search-wrap {
+    max-width: 450px;
+    margin: 50px auto;
+}
+
+.search-wrap .search-input {
+    position: relative;
+    background-color: #fff;
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: 0 1px 5px 3px rgba(0, 0, 0, 0.12);
+}
+
+.search-input input {
+    font-size: 1rem;
+    height: 55px;
+    width: 100%;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    padding: 0 60px 0 20px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.search-input .icon {
+    height: 55px;
+    width: 55px;
+    line-height: 55px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-align: center;
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+
+.search-input .autocom-box {
+    padding: 0;
+    max-height: 280px;
+    overflow-y: auto;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.search-input.active .autocom-box {
+    padding: 10px 8px;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.autocom-box li {
+    list-style: none;
+    padding: 8px 12px;
+    width: 100%;
+    cursor: default;
+    border-radius: 3px;
+    text-align: start;
+    display: none;
+}
+
+.search-input.active .autocom-box li {
+    display: block;
+}
+
+.autocom-box li:hover {
+    background: #efefef;
 }
 
 @media (max-width: 860px) {
@@ -177,7 +239,7 @@ label.item.img-upload {
         align-items: center;
     }
 
-    li {
+    .nav-li {
         display: flex;
         justify-content: space-evenly;
     }

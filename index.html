@@ -14,16 +14,24 @@
         <div class="logo">Logo</div>
         <nav class="main-nav">
             <ul class="nav-links">
-                <li><a class="nav-link" href="index.html">Gallery</a></li>
-                <li><a class="nav-link" href="#" onclick="showSavedMemes()">Memes</a></li>
-                <li><a class="nav-link" href="#">About</a></li>
+                <li class="nav-li"><a class="nav-link" href="index.html">Gallery</a></li>
+                <li class="nav-li"><a class="nav-link" href="#" onclick="showSavedMemes()">Memes</a></li>
+                <li class="nav-li"><a class="nav-link" href="#">About</a></li>
             </ul>
         </nav>
     </header>
     <section class="main-content">
         <h1 class="main-title">Meme Generator</h1>
-        <input class="search-Input" type="text" onkeyup="onSearch(value)" placeHolder="Search meme...">
-        <!-- <input type="file" class="img-input" name="image" onchange="onImgInput(event)" /> -->
+        <div class="search-wrap">
+            <div class="search-input">
+                <input class="input-search" type="text" placeHolder="Search meme...">
+                <div class="autocom-box">
+                
+                </div>
+                <div class="icon">🔎<i class="search-btn"></i></div>
+            </div>
+        </div>
+
         <div class="gallery grid-container main-gallery">
         </div>
 

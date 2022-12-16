@@ -3,6 +3,7 @@
 // features - gallery
 
 function onInit() {
+    onInitSearch()
     onInitCanvas()
     renderGallery()
 }
@@ -21,8 +22,50 @@ function renderGallery() {
     document.querySelector('.main-gallery').innerHTML = strHtml
 }
 
-function onSearch(value) { // TODO
-    console.log(value)
+// features - gallery
+
+function onInitSearch() {
+    const searchWrapper = document.querySelector('.search-input')
+    const inputBox = document.querySelector('.input-search')
+    const suggBox = document.querySelector('.autocom-box')
+
+    inputBox.onkeyup = (e) => {
+        let userData = e.target.value
+        let emptyArray = []
+        if (userData) {
+            emptyArray = gKeyWords.filter(data => {
+                return data.toLocaleLowerCase().startsWith(userData.toLocaleLowerCase())
+            })
+            emptyArray = emptyArray.map(data => { return data = `<li>${data}</li>` })
+            searchWrapper.classList.add('active')
+            showSuggestions(emptyArray)
+            let allList = suggBox.querySelectorAll('li')
+            allList.forEach(li => {
+                li.setAttribute("onclick", "select(this)")
+            })
+        } else {
+            searchWrapper.classList.remove('active')
+        }
+    }
+}
+
+function select(element) {
+    const inputBox = document.querySelector('.input-search')
+    let selectUserData = element.textContent
+    inputBox.value = selectUserData
+}
+
+function showSuggestions(list) {
+    const suggBox = document.querySelector('.autocom-box')
+    const inputBox = document.querySelector('.input-search')
+    let listData
+    if (!list.length) {
+        let userValue = inputBox.value
+        listData = `<li>${userValue}</li>`
+    } else {
+        listData = list.join('')
+    }
+    suggBox.innerHTML = listData
 }
 
 function onImgInput(ev) {
@@ -73,4 +116,5 @@ function renderSavedMemes() {
 
     document.querySelector('.saved-memes').innerHTML = strHtml
 }
+
 

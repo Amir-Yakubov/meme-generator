@@ -8,6 +8,7 @@ const STORAGE_MEMES_KEY = 'My-memes'
 
 const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 let gKeywordSearchCountMap = { 'funny': 12, 'cat': 16 }
+let gKeyWords = ['funny', 'tramp', 'politics', 'cute', 'babys', 'dogs', 'cats', 'yes', 'history chanel', 'magician', 'purple', 'obama']
 
 let gImgs = [
     { id: 1, url: 'imgs/1.jpg', keywords: ['funny', 'tramp', 'politics'] },

@@ -210,8 +210,6 @@ function resetLines() {
     ]
 }
 
-
-
 // features - Meme editor
 
 function onAddMemeTxt(value) {

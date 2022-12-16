@@ -27,6 +27,10 @@ h1 {
     padding: 10px;
 }
 
+.main-gallery {
+    z-index: 0;
+}
+
 .grid-container {
     width: 53vw;
     padding-top: 10px;

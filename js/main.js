@@ -8,12 +8,12 @@ function onInit() {
     renderGallery()
 }
 
-function renderGallery() {
+function renderGallery(imgs = getGImgs()) {
     let strHtml = `
     <label for="img-upload" class="item img-upload">Custom Upload
     <input type="file" id="img-upload" name="image" onchange="onImgInput(event)" /></label>`
 
-    const imgs = getGImgs()
+    // const imgs = getGImgs()
     imgs.forEach(img => {
         const src = img.url
         const id = img.id
@@ -52,7 +52,16 @@ function onInitSearch() {
 function select(element) {
     const inputBox = document.querySelector('.input-search')
     let selectUserData = element.textContent
+    if (selectUserData === '') return renderGallery()
+    const filteredImges = filterImgsByKewword(selectUserData)
+    renderGallery(filteredImges)
     inputBox.value = selectUserData
+}
+
+function onEmptySearchBar() {
+    const inputBox = document.querySelector('.input-search')
+    const key = inputBox.value
+    if (key === '') renderGallery()
 }
 
 function showSuggestions(list) {
@@ -117,4 +126,11 @@ function renderSavedMemes() {
     document.querySelector('.saved-memes').innerHTML = strHtml
 }
 
-
+function filterImgsByKewword(key) {
+    const imgs = getGImgs()
+    const filteredImgs = imgs.filter(img => {
+        const res = img.keywords.includes(key)
+        if (res === true) return img
+    })
+    return filteredImgs
+}

@@ -80,7 +80,6 @@ function drawText(x, y, text) {
         gCtx.fillText(text, line.location.x, line.location.y)
         gCtx.strokeText(text, line.location.x, line.location.y)
     })
-
 }
 
 function drawRect(x, y, rectSizeX, rectSizeY) {
@@ -93,6 +92,25 @@ function drawRect(x, y, rectSizeX, rectSizeY) {
 function onDown(ev) {
     const pos = getEvPos(ev)
     const lineIdx = getClickedLineIdx(pos)
+    if (lineIdx === -1 || lineIdx === undefined) return
+    if (gMeme.lines[lineIdx].txt === '') return
+    gMeme.seletedLineIdx = lineIdx
+    const wordLenght = gMeme.lines[lineIdx].txt.length
+    const wordSize = gMeme.lines[lineIdx].size
+
+    const rectStartX = gMeme.lines[lineIdx].location.x - (wordLenght * 40 / 2)
+    const rectStartY = gMeme.lines[lineIdx].location.y - (wordSize)
+    const rectSizeX = wordLenght * 40
+    const rectSizeY = 80
+
+    const txt = gMeme.lines[gMeme.seletedLineIdx].txt
+    const x = gMeme.lines[gMeme.seletedLineIdx].location.x
+    const y = gMeme.lines[gMeme.seletedLineIdx].location.y
+
+    drawText(x, y, txt)
+
+
+    drawRect(rectStartX, rectStartY, rectSizeX, rectSizeY)
 
     if (lineIdx === -1 || lineIdx === undefined) return
     gMeme.lines[lineIdx].isDrag = true
@@ -104,7 +122,7 @@ function onDown(ev) {
 }
 
 function onMove(ev) {
-    const { isDrag } = gMeme.lines[gMeme.seletedLineIdx]
+    const isDrag = gMeme.lines[gMeme.seletedLineIdx].isDrag
     if (!isDrag) return
 
     const pos = getEvPos(ev)
@@ -133,7 +151,7 @@ function onMove(ev) {
 
 function onUp() {
     gMeme.lines[gMeme.seletedLineIdx].isDrag = false
-    document.body.style.cursor = 'grab'
+    document.body.style.cursor = 'pointer'
 }
 
 function getClickedLineIdx(clickedPos) {
@@ -141,8 +159,9 @@ function getClickedLineIdx(clickedPos) {
         const { x, y } = line.location
         if (clickedPos.y > (y + line.size / 2) || clickedPos.y < (y - line.size / 2)) return
         if ((clickedPos.x < (x + line.size * 3) && clickedPos.x > (x - line.size * 3))) return line
+        return -1
     })
-    if (lineIdx === -1) return
+    if (lineIdx === -1 || lineIdx === undefined) return
     gMeme.seletedLineIdx = lineIdx
     const wordLenght = gMeme.lines[lineIdx].txt.length
     const wordSize = gMeme.lines[lineIdx].size
@@ -196,6 +215,7 @@ function renderText() {
     const x = gMeme.lines[gMeme.seletedLineIdx].location.x
     const y = gMeme.lines[gMeme.seletedLineIdx].location.y
     drawText(x, y, value)
+
 }
 
 function resetLines() {
@@ -222,6 +242,7 @@ function onAddMemeTxt(value) {
     if (gMeme.lines.length === 2) y = 450
     if (gMeme.lines.length > 2) y = 250
     drawText(x, y, value)
+    document.querySelector('.canvas-container').style.cursor = 'pointer'
 }
 
 function onChangeStrokeColor(color) {

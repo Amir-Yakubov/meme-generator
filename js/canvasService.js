@@ -7,7 +7,7 @@ let gCtx
 const STORAGE_MEMES_KEY = 'My-memes'
 
 const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
-let gKeywordSearchCountMap = { 'funny': 7, 'cats': 5 , 'dogs': 12}
+let gKeywordSearchCountMap = { 'funny': 7, 'cats': 5, 'dogs': 12 }
 
 let gImgs = [
     { id: 1, url: 'imgs/1.jpg', keywords: ['funny', 'tramp', 'politics'] },
@@ -21,6 +21,8 @@ let gImgs = [
     { id: 9, url: 'imgs/9.jpg', keywords: ['funny', 'babys'] },
     { id: 10, url: 'imgs/10.jpg', keywords: ['funny', 'obama', 'politics'] },
 ]
+
+let gStickers = ['🕹️', '🕶️', '🪄', '🌀', '❤️', '©️', '🌈', '🌹', '🌭', '🍸']
 
 let gKeyWords = getMemesKeywords()
 

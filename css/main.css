@@ -295,10 +295,7 @@ label.item.img-upload {
 }
 
 .heddin-color-input {
-    position: absolute;
-    height: 1px;
-    left: 10%;
-    top: 60%;
+    height: 0px;
 }
 
 .menu-toggle-btn {
@@ -628,7 +625,6 @@ footer {
     .canvas-container {
         display: flex;
     }
-
 
 }
 

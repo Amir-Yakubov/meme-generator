@@ -184,23 +184,26 @@ function loadImageFromInput(ev, onImageReady) {
 // features - saved Memes
 
 function showSavedMemes() {
-    var elMemeEditor = document.querySelector('.about-page')
-    elMemeEditor.style.display = 'none'
+    var elAboutPage = document.querySelector('.about-page')
+    elAboutPage.style.display = 'none'
 
     var elMemeEditor = document.querySelector('.meme-editor')
     elMemeEditor.style.display = 'none'
 
-    var elMemeEditor = document.querySelector('.search-wrap')
-    elMemeEditor.style.display = 'none'
+    var elSearch = document.querySelector('.search-wrap')
+    elSearch.style.display = 'none'
 
-    var elMemeEditor = document.querySelector('.img-upload')
-    elMemeEditor.style.display = 'none'
+    var elImgUpload = document.querySelector('.img-upload')
+    elImgUpload.style.display = 'none'
 
-    var elMemeEditor = document.querySelector('.hashtag')
-    elMemeEditor.style.display = 'none'
+    var elHashtag = document.querySelector('.hashtag')
+    elHashtag.style.display = 'none'
 
-    var elMemeEditor = document.querySelector('.main-gallery')
-    elMemeEditor.style.display = 'none'
+    var elMainGallery = document.querySelector('.main-gallery')
+    elMainGallery.style.display = 'none'
+
+    var elMainGallery = document.querySelector('.saved-memes')
+    elMainGallery.style.display = 'grid'
 
     renderSavedMemes()
 }
@@ -233,23 +236,23 @@ function showAboutPage() {
     var elMemeEditor = document.querySelector('.meme-editor')
     elMemeEditor.style.display = 'none'
 
-    var elMemeEditor = document.querySelector('.search-wrap')
-    elMemeEditor.style.display = 'none'
+    var elSavedMemes = document.querySelector('.saved-memes')
+    elSavedMemes.style.display = 'none'
 
-    var elMemeEditor = document.querySelector('.img-upload')
-    elMemeEditor.style.display = 'none'
+    var elSearch = document.querySelector('.search-wrap')
+    elSearch.style.display = 'none'
 
-    var elMemeEditor = document.querySelector('.hashtag')
-    elMemeEditor.style.display = 'none'
+    var elImgUpload = document.querySelector('.img-upload')
+    elImgUpload.style.display = 'none'
 
-    var elMemeEditor = document.querySelector('.main-gallery')
-    elMemeEditor.style.display = 'none'
+    var elHashtag = document.querySelector('.hashtag')
+    elHashtag.style.display = 'none'
 
-    var elMemeEditor = document.querySelector('.meme-editor')
-    elMemeEditor.style.display = 'none'
+    var elMainGallery = document.querySelector('.main-gallery')
+    elMainGallery.style.display = 'none'
 
-    var elMemeEditor = document.querySelector('.about-page')
-    elMemeEditor.style.display = 'block'
+    var elAboutPage = document.querySelector('.about-page')
+    elAboutPage.style.display = 'block'
 
 }
 

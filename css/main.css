@@ -4,9 +4,14 @@
     padding: 0;
 }
 
+@font-face {
+    font-family: assistant;
+    src: url(/fonts/Assistant-Regular.ttf);
+}
+
 html {
     /* font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
-    font-family: assistant;
+    font-family: assistant, Arial, Helvetica, sans-serif;
     cursor: default;
     font-size: 18px;
 }
@@ -621,6 +626,7 @@ footer {
         display: flex;
     }
 
+
 }
 
 @media (max-width: 660px) {
@@ -659,7 +665,6 @@ footer {
         cursor: pointer;
     }
 
-
     body.menu-open .main-screen {
         display: block;
     }
@@ -686,6 +691,10 @@ footer {
 
 @media (max-width: 570px) {
 
+    html{
+        font-size: 18px;
+    }
+
     canvas {
         height: 350px;
         width: 350px
@@ -698,6 +707,11 @@ footer {
     .search-wrap {
         width: 80%;
     }
+
+    .profile-pic {
+        max-height: 300px;
+    }
+
 }
 
 @media (max-width: 380px) {

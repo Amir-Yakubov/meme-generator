@@ -637,6 +637,7 @@ footer {
         position: absolute;
         display: flex;
         flex-direction: column;
+        font-size: 2rem;
         top: 0;
         align-items: baseline;
         justify-content: center;
@@ -691,7 +692,7 @@ footer {
 
 @media (max-width: 570px) {
 
-    html{
+    html {
         font-size: 18px;
     }
 

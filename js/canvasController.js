@@ -224,9 +224,9 @@ function resetLines() {
 
 function onAddMemeTxt(value) {
     // if (!value) return
-    const x = 250
+    const x = 150
     let y = 80
-    if (gMeme.lines.length === 2) y = 450
+    if (gMeme.lines.length === 2) y = 180
     if (gMeme.lines.length > 2) y = 250
     drawText(x, y, value)
     document.querySelector('.canvas-container').style.cursor = 'pointer'

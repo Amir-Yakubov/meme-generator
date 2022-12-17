@@ -184,6 +184,9 @@ function loadImageFromInput(ev, onImageReady) {
 // features - saved Memes
 
 function showSavedMemes() {
+    var elMemeEditor = document.querySelector('.about-page')
+    elMemeEditor.style.display = 'none'
+
     var elMemeEditor = document.querySelector('.meme-editor')
     elMemeEditor.style.display = 'none'
 
@@ -221,6 +224,33 @@ function onToggleMenu() {
 
 function onToggleModal() {
     document.body.classList.toggle('modal-open')
+}
+
+// about page
+
+function showAboutPage() {
+
+    var elMemeEditor = document.querySelector('.meme-editor')
+    elMemeEditor.style.display = 'none'
+
+    var elMemeEditor = document.querySelector('.search-wrap')
+    elMemeEditor.style.display = 'none'
+
+    var elMemeEditor = document.querySelector('.img-upload')
+    elMemeEditor.style.display = 'none'
+
+    var elMemeEditor = document.querySelector('.hashtag')
+    elMemeEditor.style.display = 'none'
+
+    var elMemeEditor = document.querySelector('.main-gallery')
+    elMemeEditor.style.display = 'none'
+
+    var elMemeEditor = document.querySelector('.meme-editor')
+    elMemeEditor.style.display = 'none'
+
+    var elMemeEditor = document.querySelector('.about-page')
+    elMemeEditor.style.display = 'block'
+
 }
 
 

@@ -160,6 +160,9 @@ function getClickedLineIdx(clickedPos) {
 // render
 
 function showCanvas() {
+    var elMemeEditor = document.querySelector('.about-page')
+    elMemeEditor.style.display = 'none'
+
     var elMemeEditor = document.querySelector('.meme-editor')
     elMemeEditor.style.display = 'flex'
 

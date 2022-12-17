@@ -298,7 +298,7 @@ label.item.img-upload {
 }
 
 .main-header .main-nav li {
-    box-shadow: -1px 0 0 rgba(0, 0, 0, 0.125);
+    box-shadow: -1px 0 0 rgba(230, 230, 230, 0.125);
 }
 
 
@@ -361,18 +361,13 @@ body.modal-open .modal-screen {
 
 .main-nav a:hover {
     box-shadow: inset 0 -5px 0 rgb(0 189 255 / 30%);
-    color: #0000007e;
+    color: rgba(255, 255, 255, 0.603);
+    /* border: #00000011 1px solid; */
 }
 
 .main-nav {
     display: flex;
 }
-
-/* .main-nav a.active {
-    color: rgba(0, 0, 0, 0.687);
-    box-shadow: inset 0 -5px 0 var(--clr-hover-btn);
-    cursor: default;
-} */
 
 /* slider */
 
@@ -441,6 +436,127 @@ body.modal-open .modal-screen {
 }
 
 /* ////////////////////////////////////////////////////////////// */
+
+/* about page */
+/* /////////////////////////////////////////////////////////////// */
+
+.about-page {
+    display: none;
+}
+
+.about-title {
+    font-size: 35px;
+    margin-top: 20px;
+    font-weight: 500;
+    padding: 10px;
+    margin: 0;
+}
+
+.about-title:hover {
+    color: lightyellow;
+    transition-duration: 0.8s;
+}
+
+.profile-pic {
+    border-radius: 50%;
+    margin-bottom: 20px;
+    max-height: 400px;
+}
+
+.profile-pic:hover {
+    border-radius: 45%;
+    transition-duration: 0.6s;
+}
+
+.personal-list {
+    display: table;
+    margin: auto;
+    padding-right: 1%;
+    font-size: 18px;
+    list-style: none;
+    margin-bottom: 10px;
+}
+
+.personal-list-li:hover {
+    color: lightyellow;
+}
+
+span {
+    color: black;
+    font-weight: 600;
+}
+
+.button-1 {
+    background-color: #c2fbd7;
+    border-radius: 100px;
+    box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset, rgba(44, 187, 99, .15) 0 1px 2px, rgba(44, 187, 99, .15) 0 2px 4px, rgba(44, 187, 99, .15) 0 4px 8px, rgba(44, 187, 99, .15) 0 8px 16px, rgba(44, 187, 99, .15) 0 16px 32px;
+    color: green;
+    cursor: pointer;
+    display: inline-block;
+    font-family: assistant system-ui, assistant, sans-serif;
+    padding: 7px 20px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 250ms;
+    border: 0;
+    font-size: 22px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.button-1:hover {
+    box-shadow: rgba(44, 187, 99, .35) 0 -25px 18px -14px inset, rgba(44, 187, 99, .25) 0 1px 2px, rgba(44, 187, 99, .25) 0 2px 4px, rgba(44, 187, 99, .25) 0 4px 8px, rgba(44, 187, 99, .25) 0 8px 16px, rgba(44, 187, 99, .25) 0 16px 32px;
+    transform: scale(1.05) rotate(-1deg);
+}
+
+footer {
+    height: auto;
+    width: 100%;
+    margin-top: 3%;
+    bottom: 0%;
+}
+
+.footerText {
+    font-size: 18px;
+    color: rgb(63, 63, 63);
+    font-weight: 500;
+    margin: 0;
+    padding: 0;
+}
+
+.social-links {
+    padding-left: auto;
+    padding-right: auto;
+    color: rgb(117, 196, 192);
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.contact {
+    height: 50px;
+    border: 3px;
+    border-style: solid;
+    border-radius: 50%;
+    color: aliceblue;
+}
+
+.contact:hover {
+    box-shadow: 10px 0px;
+    transition-duration: 0.8s;
+}
+
+.stay-in-touch {
+    height: 55px;
+    cursor: pointer;
+}
+
+.stay-in-touch:hover {
+    box-shadow: 0px 1.5px;
+    transition-duration: 0.9s;
+}
+
+/* /////////////////////////////////////////////////////////////// */
 
 @media (max-width: 960px) {
 
@@ -518,7 +634,7 @@ body.modal-open .modal-screen {
         top: 0;
         align-items: baseline;
         justify-content: center;
-        background-color: rgb(144, 152, 173);
+        background-color: rgb(192, 202, 228);
         min-width: 250px;
         border-inline-end: rgb(52, 55, 61);
         transform: translateY(-100%);
@@ -571,11 +687,16 @@ body.modal-open .modal-screen {
 @media (max-width: 570px) {
 
     canvas {
-        height: 350px
+        height: 350px;
+        width: 350px
     }
 
     .modal {
         max-width: 350px;
+    }
+
+    .search-wrap {
+        width: 80%;
     }
 }
 
@@ -586,7 +707,8 @@ body.modal-open .modal-screen {
     }
 
     canvas {
-        height: 280px
+        height: 280px;
+        width: 280px
     }
 
     .editor-form {

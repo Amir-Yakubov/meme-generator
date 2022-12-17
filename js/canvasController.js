@@ -86,7 +86,7 @@ function drawText(x = -1, y = -1, text = '') {
 }
 
 function drawRect(x, y, rectSizeX, rectSizeY) {
-    gCtx.strokeStyle = 'black'
+    gCtx.strokeStyle = 'white'
     gCtx.strokeRect(x, y, rectSizeX, rectSizeY)
 }
 
@@ -167,6 +167,9 @@ function showCanvas() {
     elMemeEditor.style.display = 'none'
 
     var elMemeEditor = document.querySelector('.hashtag')
+    elMemeEditor.style.display = 'none'
+
+    var elMemeEditor = document.querySelector('.more-hashtag')
     elMemeEditor.style.display = 'none'
 
     var elMemeEditor = document.querySelector('.gallery')

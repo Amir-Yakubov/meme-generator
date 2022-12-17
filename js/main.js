@@ -39,7 +39,7 @@ function renderHashtags() {
     })
     strHtml += `
     <li class="tag more-tag" onclick="onOpenMoreHashtag()">More</li>
-    <li class="tag clear-tag" onclick="onSearchByHashtag('clear')">Clear</li>`
+    <li class="tag clear-tag" onclick="clearSelectedHashtag()">Clear</li>`
 
     document.querySelector('.hashtag').innerHTML = strHtml
 }
@@ -130,14 +130,16 @@ function onSearchByIcon() {
 
 function onSearchByHashtag(key) {
     const inputBox = document.querySelector('.input-search')
-    if (key === 'clear') {
-        inputBox.value = ''
-        return renderGallery()
-    }
     updateKeywordCountMap(key)
     const filteredImges = filterImgsByKewword(key)
     renderGallery(filteredImges)
     inputBox.value = key
+}
+
+function clearSelectedHashtag() {
+    const inputBox = document.querySelector('.input-search')
+    inputBox.value = ''
+    return renderGallery()
 }
 
 function onEmptySearchBar() {

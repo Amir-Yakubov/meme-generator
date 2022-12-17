@@ -8,7 +8,11 @@ html {
     /* font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
     font-family: assistant;
     cursor: default;
-    font-size: 20px;
+    font-size: 18px;
+}
+
+body {
+    background-color: #0164883c;
 }
 
 canvas {
@@ -79,27 +83,33 @@ h1 {
     padding: 8px;
 }
 
-.canvas-wrap {
-    margin: 0 auto;
-    width: 60%;
+.canvas-container {
+    margin: 0 20px;
 }
 
-.canvas-container {
-    margin: 0 auto;
-    height: 500px;
-    width: 500px;
+canvas {
+    border-radius: 15px;
+    box-shadow: 1px 4px 20px #00000033;
+    max-width: 500px;
+    max-height: 500px;
 }
 
 .meme-editor {
-    width: 98vw;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto;
     display: flex;
     flex-direction: row;
     display: none;
 }
 
 .editor-form {
-    width: 40%;
-    background-color: rgba(0, 0, 0, 0.017);
+    width: 410px;
+    height: 500px;
+    background-color: rgba(255, 255, 255, 0.713);
+    border-radius: 15px;
+    box-shadow: 1px 4px 20px #00000033;
+    flex-basis: auto;
 }
 
 .editor-options {
@@ -124,11 +134,13 @@ h1 {
     padding: 8px 10px;
     cursor: pointer;
     margin-bottom: 10px;
+    box-shadow: 0px 9px 20px 0px rgb(0 0 0 / 13%);
 }
 
 .editor-btn {
-    font-size: 1.8rem;
+    font-size: 1rem;
 }
+
 
 .saved-item {
     width: 160px;
@@ -253,9 +265,30 @@ label.item.img-upload {
 }
 
 .sticker {
-    font-size: 5rem;
+    font-size: 4rem;
     display: inline-block;
     vertical-align: text-bottom;
+}
+
+.download a {
+    text-decoration: none;
+}
+
+.bg-color-input {
+    visibility: hidden;
+}
+
+.stroke-color-input {
+    visibility: hidden;
+}
+
+/* 
+.colors-row {
+    margin-bottom: -50px;
+} */
+
+.heddin-color-input {
+    height: 0;
 }
 
 /* slider */
@@ -265,7 +298,7 @@ label.item.img-upload {
 /* Slideshow container */
 .slideshow-container {
     position: relative;
-    background: #f1f1f1f1;
+    background: #01648811;
 }
 
 /* Slides */
@@ -334,36 +367,43 @@ label.item.img-upload {
 
 /* ////////////////////////////////////////////////////////////// */
 
+@media (max-width: 960px) {
+
+    .editor-form {
+        max-width: 345px;
+        max-height: 420px;
+        margin: 10px;
+
+    }
+
+    .editor-btn,
+    .input {
+        min-width: 2rem;
+    }
+
+    .canvas-container {
+        margin: 0 1px;
+    }
+
+}
+
 @media (max-width: 860px) {
     html {
         font-size: 16px;
     }
 
-    .canvas-wrap {
-        width: 100vw;
-    }
-
-    .canvas-container {
-        margin: 0 auto;
-        height: 100%;
-        width: 100%;
-    }
-
     .meme-editor {
-        width: 96vw;
+        width: 95vw;
         flex-direction: column;
+        margin: 0 auto;
     }
 
     .editor-form {
-        width: 100%;
-        background-color: rgba(0, 0, 0, 0.017);
+        align-self: center;
     }
 
     .editor-options {
         margin: 0 auto;
-        width: 60%;
-        height: 18rem;
-        align-items: center;
     }
 
     .nav-li {
@@ -380,6 +420,38 @@ label.item.img-upload {
 
 @media (max-width: 760px) {
     .grid-container {
-        width: 100vw;
+        width: 95vw;
+    }
+
+    .canvas-container {
+        display: flex;
+    }
+}
+
+@media (max-width: 570px) {
+
+    canvas {
+        height: 350px
+    }
+}
+
+@media (max-width: 380px) {
+
+    .logo-img {
+        height: 50px
+    }
+
+    canvas {
+        height: 280px
+    }
+
+    .editor-form {
+        width: 280px;
+
+    }
+
+    .editor-options {
+        width: 280px;
+        font-size: 0.8rem;
     }
 }

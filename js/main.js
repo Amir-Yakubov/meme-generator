@@ -213,4 +213,14 @@ function renderSavedMemes() {
     document.querySelector('.saved-memes').innerHTML = strHtml
 }
 
+// nav and modal
+
+function onToggleMenu() {
+    document.body.classList.toggle('menu-open')
+}
+
+function onToggleModal() {
+    document.body.classList.toggle('modal-open')
+}
+
 

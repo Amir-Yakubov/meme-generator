@@ -20,9 +20,15 @@ let gImgs = [
     { id: 8, url: 'imgs/8.jpg', keywords: ['magician', 'purple'] },
     { id: 9, url: 'imgs/9.jpg', keywords: ['funny', 'babys'] },
     { id: 10, url: 'imgs/10.jpg', keywords: ['funny', 'obama', 'politics'] },
+    { id: 11, url: 'imgs/11.jpg', keywords: ['funny', 'kiss'] },
+    { id: 12, url: 'imgs/12.jpg', keywords: ['funny', 'haim hecht'] },
+    { id: 13, url: 'imgs/13.jpg', keywords: ['leonardo dicaprio', 'movies'] },
+    { id: 14, url: 'imgs/14.jpg', keywords: ['matrix', 'movies'] },
+    { id: 15, url: 'imgs/15.jpg', keywords: ['games of thrones', 'movies', 'Sean Mark Bean'] },
+    { id: 16, url: 'imgs/16.jpg', keywords: ['x-men', 'funny', 'charles xavier'] },
+    { id: 17, url: 'imgs/17.jpg', keywords: ['potin', 'politics'] },
+    { id: 18, url: 'imgs/18.jpg', keywords: ['movies', 'toy story'] }
 ]
-
-let gStickers = ['🕹️', '🕶️', '🪄', '🌀', '❤️', '©️', '🌈', '🌹', '🌭', '🍸']
 
 let gKeyWords = getMemesKeywords()
 

@@ -65,6 +65,7 @@ h1 {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0px 11px 20px #00b5ff21;
 }
 
 .logo {
@@ -86,6 +87,7 @@ h1 {
 
 .nav-link {
     padding: 8px;
+    text-decoration: none;
 }
 
 .canvas-container {
@@ -347,15 +349,19 @@ body.modal-open .modal-screen {
 
 
 .main-nav a {
-    padding: 3.48rem 2.5rem;
+    padding: 3rem 2.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
     transition: .4s;
+    color: #000000;
+    /* font-weight: 500; */
+    font-size: 1.2rem;
 }
 
 .main-nav a:hover {
-    box-shadow: inset 0 -5px 0 rgba(0, 0, 0, 0.343);
+    box-shadow: inset 0 -5px 0 rgb(0 189 255 / 30%);
+    color: #0000007e;
 }
 
 .main-nav {
@@ -472,6 +478,10 @@ body.modal-open .modal-screen {
 
     .editor-options {
         margin: 0 auto;
+    }
+
+    .main-nav a {
+        padding: 2.5rem 1.5rem;
     }
 
     .nav-li {

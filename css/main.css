@@ -295,7 +295,10 @@ label.item.img-upload {
 }
 
 .heddin-color-input {
-    height: 0;
+    position: absolute;
+    height: 1px;
+    left: 10%;
+    top: 60%;
 }
 
 .menu-toggle-btn {

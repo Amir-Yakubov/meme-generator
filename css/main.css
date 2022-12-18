@@ -258,6 +258,7 @@ label.item.img-upload {
 
 .more-hashtag {
     flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .clear-tag {
@@ -274,6 +275,7 @@ label.item.img-upload {
     color: rgb(68, 142, 215);
     font-size: 1.3rem;
     font-weight: 500;
+    margin: 0 auto;
 }
 
 .sticker {
@@ -286,16 +288,10 @@ label.item.img-upload {
     text-decoration: none;
 }
 
-.bg-color-input {
-    visibility: hidden;
-}
-
-.stroke-color-input {
-    visibility: hidden;
-}
-
 .heddin-color-input {
-    height: 0px;
+    position: relative;
+    height: 3px;
+    opacity: 0;
 }
 
 .menu-toggle-btn {

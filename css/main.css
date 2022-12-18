@@ -605,6 +605,10 @@ footer {
         margin: 0 auto;
     }
 
+    .grid-container.main-gallery {
+        background-color: #c1dae2;
+    }
+
     .editor-form {
         align-self: center;
     }

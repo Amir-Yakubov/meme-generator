@@ -249,7 +249,7 @@ label.item.img-upload {
 }
 
 .tag {
-    padding: 20px;
+    padding: 15px;
     cursor: pointer;
     transition: color .3s;
 }
@@ -304,6 +304,9 @@ label.item.img-upload {
     box-shadow: -1px 0 0 rgba(230, 230, 230, 0.125);
 }
 
+.memes-page {
+    display: none;
+}
 
 /* modal */
 
@@ -355,7 +358,7 @@ body.modal-open .modal {
     width: 100%;
     cursor: pointer;
     text-decoration: none;
-    
+
 }
 
 .modal-btn.close {
@@ -464,14 +467,6 @@ body.modal-open .modal-screen {
 
 .about-page {
     display: none;
-}
-
-.about-title {
-    font-size: 35px;
-    margin-top: 20px;
-    font-weight: 500;
-    padding: 10px;
-    margin: 0;
 }
 
 .about-title:hover {

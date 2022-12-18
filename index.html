@@ -20,7 +20,7 @@
             <button class="modal-btn share" onclick="onShareFacebook()">Share on FB</button>
             <button class="modal-btn download"><a href="#" onclick="downloadCanvas(this)"
                     download="my-img">Download</a></button>
-            <button class="modal-btn save" onclick="saveCanvas()">Save</button>
+            <button class="modal-btn save" onclick="saveCanvas(),onToggleModal(), showSavedMemes()">Save</button>
         </li>
         <li>
             <button class="editor-btn close" onclick="onToggleModal()">Close</button>
@@ -28,33 +28,40 @@
     </div>
 
     <header class="main-header">
-        <div class="logo"><a href="index.html"><img class="logo-img" src="imgs/LOGO.png"></a></div>
+        <!-- <div class="logo"><a href="index.html"><img class="logo-img" src="imgs/LOGO.png"></a></div> -->
+        <div class="logo" onclick="showGalleryPage()"><img class="logo-img" src="imgs/LOGO.png"></div>
         <nav class="main-nav">
             <ul class="nav-links">
-                <li class="nav-li"><a class="nav-link" href="index.html">Gallery</a></li>
-                <li class="nav-li"><a class="nav-link" href="#" onclick="showSavedMemes()">Memes</a></li>
-                <li class="nav-li"><a class="nav-link" href="#" onclick="showAboutPage()">About</a></li>
+                <li class="nav-li"><a class="nav-link" href="#" onclick="showGalleryPage()">Gallery</a></li>
+                <li class="nav-li"><a class="nav-link" href="#" onclick="onToggleMenu(), showSavedMemes()">Memes</a>
+                </li>
+                <li class="nav-li"><a class="nav-link" href="#" onclick="onToggleMenu(), showAboutPage()">About</a></li>
             </ul>
         </nav>
         <button onclick="onToggleMenu()" class="menu-toggle-btn">☰</button>
     </header>
+
     <section class="main-content">
-        <div class="search-wrap">
-            <div class="search-input" onkeyup="onEmptySearchBar()">
-                <input class="input-search" id="search-meme" type="text" placeHolder="Search meme...">
-                <div class="autocom-box"></div>
-                <div class="icon fa-solid fa-magnifying-glass" onclick="onSearchByIcon()"></div>
+
+        <section class="gallery-page">
+            <h1 class="gallery-title">Gallery</h1>
+            <div class="search-wrap">
+                <div class="search-input" onkeyup="onEmptySearchBar()">
+                    <input class="input-search" id="search-meme" type="text" placeHolder="Search meme...">
+                    <div class="autocom-box"></div>
+                    <div class="icon fa-solid fa-magnifying-glass" onclick="onSearchByIcon()"></div>
+                </div>
             </div>
-        </div>
 
-        <div class="wrap-hashtag">
-            <div class="hashtag"></div>
-            <div class="hashtag more-hashtag"></div>
-        </div>
+            <div class="wrap-hashtag">
+                <div class="hashtag"></div>
+                <div class="hashtag more-hashtag"></div>
+            </div>
 
-        <div class="gallery grid-container main-gallery">
-        </div>
-
+            <div class="gallery grid-container main-gallery">
+            </div>
+        </section>
+        
         <section class="meme-editor">
             <div class="canvas-wrap">
                 <div class="canvas-container">
@@ -144,16 +151,19 @@
             </div>
         </section>
 
+
         <section class="memes-page">
+            <h1 class="memes-title">Mems</h1>
             <div class="gallery grid-container saved-memes"></div>
         </section>
 
         <section class="about-page">
             <div>
-                <h1 class="about-title"><u>Amir Yakubov</u></h1>
+                <h1 class="about-title">About</h1>
                 <img class="profile-pic" src="imgs/profile.jpg">
 
                 <ul class="personal-list">
+                    <li class="personal-list-li">Amir Yakubov</li>
                     <li class="personal-list-li">Email - yakobub@gmail.com</li>
                     <li class="personal-list-li">Mobile - 054-7271193</li>
                     <li class="personal-list-li">full stack developer</li>

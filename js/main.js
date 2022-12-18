@@ -9,6 +9,13 @@ function onInit() {
     renderHashtags()
 }
 
+function showGalleryPage() {
+    document.querySelector('.memes-page').style.display = 'none'
+    document.querySelector('.about-page').style.display = 'none'
+    document.querySelector('.meme-editor').style.display = 'none'
+    document.querySelector('.gallery-page').style.display = 'block'
+}
+
 function renderGallery(imgs = getGImgs()) {
     let strHtml = `
     <label for="img-upload" class="item img-upload">Custom Upload
@@ -79,6 +86,8 @@ function filterImgsByKewword(key) {
     return filteredImgs
 }
 
+/// search bar
+
 function onInitSearch() {
     const searchWrapper = document.querySelector('.search-input')
     const inputBox = document.querySelector('.input-search')
@@ -113,6 +122,8 @@ function select(element) {
     renderGallery(filteredImges)
     inputBox.value = selectUserData
 }
+
+///////// \search bar
 
 function updateKeywordCountMap(searchedKeys) {
     const keywordSearchCountMap = getGKeywordSearchCountMap()
@@ -184,27 +195,11 @@ function loadImageFromInput(ev, onImageReady) {
 // features - saved Memes
 
 function showSavedMemes() {
-    var elAboutPage = document.querySelector('.about-page')
-    elAboutPage.style.display = 'none'
-
-    var elMemeEditor = document.querySelector('.meme-editor')
-    elMemeEditor.style.display = 'none'
-
-    var elSearch = document.querySelector('.search-wrap')
-    elSearch.style.display = 'none'
-
-    var elImgUpload = document.querySelector('.img-upload')
-    elImgUpload.style.display = 'none'
-
-    var elHashtag = document.querySelector('.hashtag')
-    elHashtag.style.display = 'none'
-
-    var elMainGallery = document.querySelector('.main-gallery')
-    elMainGallery.style.display = 'none'
-
-    var elMainGallery = document.querySelector('.saved-memes')
-    elMainGallery.style.display = 'grid'
-
+    document.querySelector('.about-page').style.display = 'none'
+    document.querySelector('.gallery-page').style.display = 'none'
+    document.querySelector('.meme-editor').style.display = 'none'
+    document.querySelector('.memes-page').style.display = 'block'
+    document.querySelector('.saved-memes').style.display = 'grid'
     renderSavedMemes()
 }
 
@@ -229,31 +224,14 @@ function onToggleModal() {
     document.body.classList.toggle('modal-open')
 }
 
-// about page
+// about-page
 
 function showAboutPage() {
-
-    var elMemeEditor = document.querySelector('.meme-editor')
-    elMemeEditor.style.display = 'none'
-
-    var elSavedMemes = document.querySelector('.saved-memes')
-    elSavedMemes.style.display = 'none'
-
-    var elSearch = document.querySelector('.search-wrap')
-    elSearch.style.display = 'none'
-
-    var elImgUpload = document.querySelector('.img-upload')
-    elImgUpload.style.display = 'none'
-
-    var elHashtag = document.querySelector('.hashtag')
-    elHashtag.style.display = 'none'
-
-    var elMainGallery = document.querySelector('.main-gallery')
-    elMainGallery.style.display = 'none'
-
-    var elAboutPage = document.querySelector('.about-page')
-    elAboutPage.style.display = 'block'
-
+    document.querySelector('.memes-page').style.display = 'none'
+    document.querySelector('.gallery-page').style.display = 'none'
+    document.querySelector('.meme-editor').style.display = 'none'
+    document.querySelector('.about-page').style.display = 'block'
 }
+
 
 

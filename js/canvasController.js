@@ -160,23 +160,11 @@ function getClickedLineIdx(clickedPos) {
 // render
 
 function showCanvas() {
-    var elAboutPage = document.querySelector('.about-page')
-    elAboutPage.style.display = 'none'
-
-    var elMemeEditor = document.querySelector('.meme-editor')
-    elMemeEditor.style.display = 'flex'
-
-    var elSearch = document.querySelector('.search-wrap')
-    elSearch.style.display = 'none'
-
-    var elHashtag = document.querySelector('.hashtag')
-    elHashtag.style.display = 'none'
-
-    var elMorehashtag = document.querySelector('.more-hashtag')
-    elMorehashtag.style.display = 'none'
-
-    var elGallery = document.querySelector('.gallery')
-    elGallery.style.display = 'none'
+   document.querySelector('.gallery-page').style.display = 'none'
+   document.querySelector('.memes-page').style.display = 'none'
+   document.querySelector('.about-page').style.display = 'none'
+    
+    document.querySelector('.meme-editor').style.display = 'flex'
 }
 
 function renderImgGallery(src, id) {

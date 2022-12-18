@@ -1,6 +1,6 @@
 'use strict'
 
-let gStartPos
+let gStartPos = { x: 0, y: 0 }
 let gElCanvas
 let gCtx
 
@@ -40,13 +40,13 @@ let gMeme = {
     seletedLineIdx: 0,
     lines: [
         {
-            txt: '',
+            txt: 'text here',
             size: 40,
             font: 'impact',
             align: 'center',
             bgColor: 'white',
             strokeColor: 'black',
-            location: { x: 50, y: 50 },
+            location: { x: 120, y: 100 },
             isDrag: false
         }
     ]
@@ -68,6 +68,14 @@ function getGKeywordSearchCountMap() {
 
 function getGMeme() {
     return gMeme
+}
+
+function getGMemeSeletedLineIdx() {
+    return gMeme.seletedLineIdx
+}
+
+function getGMemeLocation() {
+    return gMeme.lines[gMeme.seletedLineIdx].location
 }
 
 function getGMemeLines() {

@@ -39,12 +39,16 @@ function renderCanvas() {
 
 function clearCanvas() {
     if (!confirm('Are you sure?')) return
+
     gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height)
-    gMeme.seletedLineIdx = 0
+    let meme = getGMeme()
+    meme.seletedLineIdx = 0
+
     clearPlaceHolder()
     renderCanvas()
     renderImg()
     resetLines()
+    drawText()
 }
 
 function clearPlaceHolder() {
@@ -104,22 +108,26 @@ function onDown(ev) {
         drawText()
         return
     }
-    if (gMeme.lines[lineIdx].txt === '') return
-    gMeme.seletedLineIdx = lineIdx
+    let meme = getGMeme()
+    if (meme.lines[lineIdx].txt === '') return
 
+    drawText()
     drawFrame()
 
-    if (lineIdx === -1 || lineIdx === undefined) return
-    gMeme.lines[lineIdx].isDrag = true
-    gMeme.lines[lineIdx].location.x = pos.x
-    gMeme.lines[lineIdx].location.y = pos.y
-    gMeme.seletedLineIdx = lineIdx
+    meme.seletedLineIdx = lineIdx
+    document.querySelector('.editor-row.text-input').value = meme.lines[lineIdx].txt
     document.body.style.cursor = 'grabbing'
+
+    meme.lines[lineIdx].isDrag = true
+    meme.lines[lineIdx].location.x = pos.x
+    meme.lines[lineIdx].location.y = pos.y
+    meme.seletedLineIdx = lineIdx
     gStartPos = pos
 }
 
 function onMove(ev) {
-    const isDrag = gMeme.lines[gMeme.seletedLineIdx].isDrag
+    let meme = getGMeme()
+    const isDrag = meme.lines[gMeme.seletedLineIdx].isDrag
     if (!isDrag) return
 
     const pos = getEvPos(ev)
@@ -127,31 +135,33 @@ function onMove(ev) {
     const dy = pos.y - gStartPos.y
     gStartPos = pos
 
-    gMeme.lines[gMeme.seletedLineIdx].location.x += dx
-    gMeme.lines[gMeme.seletedLineIdx].location.y += dy
+    meme.lines[gMeme.seletedLineIdx].location.x += dx
+    meme.lines[gMeme.seletedLineIdx].location.y += dy
 
-    const txt = gMeme.lines[gMeme.seletedLineIdx].txt
-    const x = gMeme.lines[gMeme.seletedLineIdx].location.x
-    const y = gMeme.lines[gMeme.seletedLineIdx].location.y
+    const txt = meme.lines[gMeme.seletedLineIdx].txt
+    const x = meme.lines[gMeme.seletedLineIdx].location.x
+    const y = meme.lines[gMeme.seletedLineIdx].location.y
 
     drawText(x, y, txt)
     drawFrame()
 }
 
 function onUp() {
-    gMeme.lines[gMeme.seletedLineIdx].isDrag = false
+    let meme = getGMeme()
+    meme.lines[gMeme.seletedLineIdx].isDrag = false
     document.body.style.cursor = 'pointer'
 }
 
 function getClickedLineIdx(clickedPos) {
-    const lineIdx = gMeme.lines.findIndex(line => {
+    let meme = getGMeme()
+    const lineIdx = meme.lines.findIndex(line => {
         const { x, y } = line.location
         if (clickedPos.y > (y + line.size / 2) || clickedPos.y < (y - line.size / 2)) return
         if ((clickedPos.x < (x + line.size * 3) && clickedPos.x > (x - line.size * 3))) return line
         return -1
     })
     if (lineIdx === -1 || lineIdx === undefined) return
-    gMeme.seletedLineIdx = lineIdx
+    meme.seletedLineIdx = lineIdx
 
     drawFrame()
     return lineIdx
@@ -160,21 +170,25 @@ function getClickedLineIdx(clickedPos) {
 // render
 
 function showCanvas() {
-   document.querySelector('.gallery-page').style.display = 'none'
-   document.querySelector('.memes-page').style.display = 'none'
-   document.querySelector('.about-page').style.display = 'none'
-    
+    document.querySelector('.gallery-page').style.display = 'none'
+    document.querySelector('.memes-page').style.display = 'none'
+    document.querySelector('.about-page').style.display = 'none'
     document.querySelector('.meme-editor').style.display = 'flex'
 }
 
-function renderImgGallery(src, id) {
+function renderSelectedImgToEditor(src, id) {
     id = +id
-    gMeme.selectedImgId = id
+    let meme = getGMeme()
+    meme.selectedImgId = id
 
     const imgIdx = findImgIdxById(id)
-    gMeme.seletedImgIdx = imgIdx
-    gImgs[imgIdx].url = src
+    meme.seletedImgIdx = imgIdx
+    const imgs = getGImgs()
+    imgs[imgIdx].url = src
+
     renderImg()
+    drawText()
+    document.querySelector('.editor-row.text-input').value = meme.lines[gMeme.seletedLineIdx].txt
 }
 
 function renderImg() {
@@ -187,22 +201,24 @@ function renderImg() {
 }
 
 function renderText() {
-    const value = gMeme.lines[gMeme.seletedLineIdx].txt
-    const x = gMeme.lines[gMeme.seletedLineIdx].location.x
-    const y = gMeme.lines[gMeme.seletedLineIdx].location.y
+    let meme = getGMeme()
+    const value = meme.lines[gMeme.seletedLineIdx].txt
+    const x = meme.lines[gMeme.seletedLineIdx].location.x
+    const y = meme.lines[gMeme.seletedLineIdx].location.y
     drawText(x, y, value)
 }
 
 function resetLines() {
-    gMeme.lines = [
+    let meme = getGMeme()
+    meme.lines = [
         {
-            txt: '',
-            size: 50,
+            txt: 'text here',
+            size: 40,
             font: 'impact',
             align: 'center',
             bgColor: 'white',
             strokeColor: 'black',
-            location: { x: 250, y: 50 },
+            location: { x: 120, y: 100 },
             isDrag: false
         }
     ]
@@ -211,11 +227,11 @@ function resetLines() {
 // features - Meme editor
 
 function onAddMemeTxt(value) {
-    // if (!value) return
-    const x = 150
-    let y = 80
-    if (gMeme.lines.length === 2) y = 180
-    if (gMeme.lines.length > 2) y = 250
+    let meme = getGMeme()
+
+    const x = meme.lines[meme.seletedLineIdx].location.x
+    const y = meme.lines[meme.seletedLineIdx].location.y
+
     drawText(x, y, value)
     document.querySelector('.canvas-container').style.cursor = 'pointer'
 }
@@ -272,12 +288,11 @@ function onChoseAnotherLine() {
     const txt = gMeme.lines[gMeme.seletedLineIdx].txt
     if (txt === '') return
 
+    document.querySelector('.editor-row.text-input').value = gMeme.lines[gMeme.seletedLineIdx].txt
     renderCanvas()
     renderImg()
-    // renderText()
     drawText()
     drawFrame()
-
 }
 
 function drawFrame() {
@@ -294,13 +309,17 @@ function drawFrame() {
     drawRect(rectStartX, rectStartY, rectSizeX, rectSizeY)
 }
 
-function onTextDone(txt = '') {
-    const x = gMeme.lines[gMeme.seletedLineIdx].location.x
-    const y = gMeme.lines[gMeme.seletedLineIdx].location.y
+function onTextDone() {
+    let meme = getGMeme()
+    const x = 120
+    let y = 100
+    if (meme.lines.length > 0) y = 150
+    if (meme.lines.length > 1) y = 200
+    if (meme.lines.length > 2) y = 250
 
     const newLine = {
-        txt,
-        size: 50,
+        txt: 'new line',
+        size: 40,
         font: 'impact',
         align: 'center',
         bgColor: 'white',
@@ -308,10 +327,11 @@ function onTextDone(txt = '') {
         location: { x, y },
         isDrag: false
     }
-    gMeme.lines.push(newLine)
-    gMeme.seletedLineIdx += 1
+    meme.lines.push(newLine)
+    meme.seletedLineIdx += 1
     const elTextInput = document.querySelector('.text-input')
     elTextInput.value = ""
+    drawText()
 }
 
 function downloadCanvas(elLink) {

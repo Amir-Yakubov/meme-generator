@@ -24,7 +24,7 @@ function renderGallery(imgs = getGImgs()) {
     imgs.forEach(img => {
         const src = img.url
         const id = img.id
-        strHtml += `<img id="${id}" src="${src}" class="item" onclick="showCanvas(), renderImgGallery(src, id)" />`
+        strHtml += `<img id="${id}" src="${src}" class="item" onclick="showCanvas(), renderSelectedImgToEditor(src, id)" />`
     })
     document.querySelector('.main-gallery').innerHTML = strHtml
 }

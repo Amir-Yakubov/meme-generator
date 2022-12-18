@@ -10,6 +10,7 @@ function loadFromStorage(key) {
 }
 
 function saveCanvas() {
+    drawText()
     const name = prompt('Save as?')
     const savedMeme = { name, url: gElCanvas.toDataURL("image/png") }
     gSavedMemes = loadFromStorage(STORAGE_MEMES_KEY)

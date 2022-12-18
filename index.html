@@ -17,16 +17,18 @@
     <div class="modal-screen" onclick="onToggleModal()"></div>
     <div class="modal">
         <li class="modal-btns">
-            <button class="editor-btn share" onclick="onShareFacebook()">Share on Facebook</button>
-            <button class="editor-btn save" onclick="saveCanvas()">Save</button>
-            <button class="editor-btn download"><a href="#" onclick="downloadCanvas(this)"
+            <button class="modal-btn share" onclick="onShareFacebook()">Share on FB</button>
+            <button class="modal-btn download"><a href="#" onclick="downloadCanvas(this)"
                     download="my-img">Download</a></button>
+            <button class="modal-btn save" onclick="saveCanvas()">Save</button>
         </li>
-        <button class="editor-btn" onclick="onToggleModal()">Close</button>
+        <li>
+            <button class="editor-btn close" onclick="onToggleModal()">Close</button>
+        </li>
     </div>
 
     <header class="main-header">
-        <div class="logo"><img class="logo-img" src="imgs/LOGO.png"></div>
+        <div class="logo"><a href="index.html"><img class="logo-img" src="imgs/LOGO.png"></a></div>
         <nav class="main-nav">
             <ul class="nav-links">
                 <li class="nav-li"><a class="nav-link" href="index.html">Gallery</a></li>
@@ -41,7 +43,7 @@
             <div class="search-input" onkeyup="onEmptySearchBar()">
                 <input class="input-search" id="search-meme" type="text" placeHolder="Search meme...">
                 <div class="autocom-box"></div>
-                <div class="icon" onclick="onSearchByIcon()">🔎</div>
+                <div class="icon fa-solid fa-magnifying-glass" onclick="onSearchByIcon()"></div>
             </div>
         </div>
 

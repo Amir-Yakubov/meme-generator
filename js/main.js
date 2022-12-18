@@ -18,7 +18,7 @@ function showGalleryPage() {
 
 function renderGallery(imgs = getGImgs()) {
     let strHtml = `
-    <label for="img-upload" class="item img-upload">Custom Upload
+    <label for="img-upload" class="item img-upload">Upload img
     <input type="file" id="img-upload" name="image" onchange="onImgInput(event)" /></label>`
 
     imgs.forEach(img => {
@@ -45,8 +45,7 @@ function renderHashtags() {
         fontSize = 16
     })
     strHtml += `
-    <li class="tag more-tag" onclick="onOpenMoreHashtag()">More</li>
-    <li class="tag clear-tag" onclick="clearSelectedHashtag()">Clear</li>`
+    <li class="tag more-tag" onclick="onOpenMoreHashtag()">More</li>`
 
     document.querySelector('.hashtag').innerHTML = strHtml
 }
@@ -90,22 +89,27 @@ function filterImgsByKewword(key) {
 
 function onInitSearch() {
     const searchWrapper = document.querySelector('.search-input')
-    const inputBox = document.querySelector('.input-search')
-    const suggBox = document.querySelector('.autocom-box')
+    const searchInputBox = document.querySelector('.input-search')
+    const suggestionBox = document.querySelector('.autocom-box')
 
-    inputBox.onkeyup = (e) => {
-        let userData = e.target.value
-        let emptyArray = []
-        if (userData) {
-            emptyArray = gKeyWords.filter(data => {
-                return data.toLocaleLowerCase().startsWith(userData.toLocaleLowerCase())
+    searchInputBox.onkeyup = (e) => {
+        let inputKeywords = e.target.value
+        let searchSuggestion = []
+
+        if (inputKeywords) {
+            searchSuggestion = gKeyWords.filter(data => {
+                return data.toLocaleLowerCase().startsWith(inputKeywords.toLocaleLowerCase())
             })
-            emptyArray = emptyArray.map(data => { return data = `<li>${data}</li>` })
+
+            searchSuggestion = searchSuggestion.map(data => { return data = `<li>${data}</li>` })
+
             searchWrapper.classList.add('active')
-            showSuggestions(emptyArray)
-            let allList = suggBox.querySelectorAll('li')
+            showSuggestions(searchSuggestion)
+
+            let allList = suggestionBox.querySelectorAll('li')
+
             allList.forEach(li => {
-                li.setAttribute("onclick", "select(this)")
+                li.setAttribute("onclick", "onSelectSuggestion(this)")
             })
         } else {
             searchWrapper.classList.remove('active')
@@ -113,17 +117,15 @@ function onInitSearch() {
     }
 }
 
-function select(element) {
+function onSelectSuggestion(element) {
     const inputBox = document.querySelector('.input-search')
-    let selectUserData = element.textContent
-    if (selectUserData === '') return renderGallery()
-    updateKeywordCountMap(selectUserData)
-    const filteredImges = filterImgsByKewword(selectUserData)
+    let selectedSuggestion = element.textContent
+    if (selectedSuggestion === '') return renderGallery()
+    updateKeywordCountMap(selectedSuggestion)
+    const filteredImges = filterImgsByKewword(selectedSuggestion)
     renderGallery(filteredImges)
-    inputBox.value = selectUserData
+    inputBox.value = selectedSuggestion
 }
-
-///////// \search bar
 
 function updateKeywordCountMap(searchedKeys) {
     const keywordSearchCountMap = getGKeywordSearchCountMap()
@@ -171,6 +173,8 @@ function showSuggestions(list) {
     }
     suggBox.innerHTML = listData
 }
+
+// upload img
 
 function onImgInput(ev) {
     showCanvas()

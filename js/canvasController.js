@@ -1,6 +1,6 @@
 'use strict'
 
-// canvas and events
+// init canvas and resize
 
 function onInitCanvas() {
     gElCanvas = document.querySelector('canvas')
@@ -8,6 +8,14 @@ function onInitCanvas() {
     addListeners()
     renderCanvas()
 }
+
+function resizeCanvas() {
+    const elContainer = document.querySelector('.canvas-container')
+    gElCanvas.width = elContainer.offsetWidth
+    gElCanvas.height = elContainer.offsetWidth
+}
+
+// events on canvas
 
 function addListeners() {
     addMouseListeners()
@@ -32,35 +40,7 @@ function addTouchListeners() {
     gElCanvas.addEventListener('touchend', onUp)
 }
 
-function renderCanvas() {
-    gCtx.fillStyle = 'rgb(225, 225, 225)'
-    gCtx.fillRect(0, 0, gElCanvas.width, gElCanvas.height)
-}
-
-function clearCanvas() {
-    if (!confirm('Are you sure?')) return
-
-    gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height)
-    let meme = getGMeme()
-    meme.seletedLineIdx = 0
-
-    clearPlaceHolder()
-    renderCanvas()
-    renderImg()
-    resetLines()
-    drawText()
-}
-
-function clearPlaceHolder() {
-    const elTextInput = document.querySelector('.text-input')
-    elTextInput.value = ""
-}
-
-function resizeCanvas() {
-    const elContainer = document.querySelector('.canvas-container')
-    gElCanvas.width = elContainer.offsetWidth
-    gElCanvas.height = elContainer.offsetWidth
-}
+// draw on canvas
 
 function drawText(x = -1, y = -1, text = '') {
     renderCanvas()
@@ -169,11 +149,28 @@ function getClickedLineIdx(clickedPos) {
 
 // render
 
-function showCanvas() {
-    document.querySelector('.gallery-page').style.display = 'none'
-    document.querySelector('.memes-page').style.display = 'none'
-    document.querySelector('.about-page').style.display = 'none'
-    document.querySelector('.meme-editor').style.display = 'flex'
+function renderCanvas() {
+    gCtx.fillStyle = 'rgb(225, 225, 225)'
+    gCtx.fillRect(0, 0, gElCanvas.width, gElCanvas.height)
+}
+
+function clearCanvas() {
+    if (!confirm('Are you sure?')) return
+
+    gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height)
+    let meme = getGMeme()
+    meme.seletedLineIdx = 0
+
+    clearPlaceHolder()
+    renderCanvas()
+    renderImg()
+    resetLines()
+    drawText()
+}
+
+function clearPlaceHolder() {
+    const elTextInput = document.querySelector('.text-input')
+    elTextInput.value = ""
 }
 
 function renderSelectedImgToEditor(src, id) {
@@ -224,6 +221,13 @@ function resetLines() {
     ]
 }
 
+function showCanvas() {
+    document.querySelector('.gallery-page').style.display = 'none'
+    document.querySelector('.memes-page').style.display = 'none'
+    document.querySelector('.about-page').style.display = 'none'
+    document.querySelector('.meme-editor').style.display = 'flex'
+}
+
 // features - Meme editor
 
 function onAddMemeTxt(value) {
@@ -237,58 +241,58 @@ function onAddMemeTxt(value) {
 }
 
 function onChangeStrokeColor(color) {
-    const idx = gMeme.seletedLineIdx
-    gMeme.lines[idx].strokeColor = color
-    // renderText()
+    let meme = getGMeme()
+    const idx = meme.seletedLineIdx
+    meme.lines[idx].strokeColor = color
     drawText()
 }
 
 function onChangeBgColor(color) {
-    const idx = gMeme.seletedLineIdx
-    gMeme.lines[idx].bgColor = color
-    // renderText()
+    let meme = getGMeme()
+    const idx = meme.seletedLineIdx
+    meme.lines[idx].bgColor = color
     drawText()
 }
 
 function onChangeFont(font) {
-    const idx = gMeme.seletedLineIdx
-    gMeme.lines[idx].font = font
-    // renderText()
+    let meme = getGMeme()
+    const idx = meme.seletedLineIdx
+    meme.lines[idx].font = font
     drawText()
 }
 
 function onChangeFontSize(plusOrMinus) {
-    // const idx = gMeme.seletedLineIdx
-    if (plusOrMinus === '+') gMeme.lines[gMeme.seletedLineIdx].size += 3
-    else gMeme.lines[gMeme.seletedLineIdx].size -= 3
-    // renderText()
+    let meme = getGMeme()
+    if (plusOrMinus === '+') meme.lines[meme.seletedLineIdx].size += 3
+    else meme.lines[meme.seletedLineIdx].size -= 3
     drawText()
 }
 
 function onMoveText(upOrDown) {
-    const idx = gMeme.seletedLineIdx
-    if (upOrDown === 'up') gMeme.lines[idx].location.y -= 50
-    else gMeme.lines[idx].location.y += 50
-    const value = gMeme.lines[idx].txt
-    drawText(gMeme.lines[idx].location.x, gMeme.lines[idx].location.y, value)
+    let meme = getGMeme()
+    const idx = meme.seletedLineIdx
+    if (upOrDown === 'up') meme.lines[idx].location.y -= 50
+    else meme.lines[idx].location.y += 50
+    const value = meme.lines[idx].txt
+    drawText(meme.lines[idx].location.x, meme.lines[idx].location.y, value)
 }
 
 function onChangeAlign(align) {
-    const idx = gMeme.seletedLineIdx
-    gMeme.lines[idx].align = align
-    // renderText()
+    let meme = getGMeme()
+    const idx = meme.seletedLineIdx
+    meme.lines[idx].align = align
     drawText()
 }
 
 function onChoseAnotherLine() {
+    let meme = getGMeme()
+    meme.seletedLineIdx += 1
+    if (meme.seletedLineIdx > (meme.lines.length - 1)) meme.seletedLineIdx = 0
 
-    gMeme.seletedLineIdx += 1
-    if (gMeme.seletedLineIdx > (gMeme.lines.length - 1)) gMeme.seletedLineIdx = 0
-
-    const txt = gMeme.lines[gMeme.seletedLineIdx].txt
+    const txt = meme.lines[meme.seletedLineIdx].txt
     if (txt === '') return
 
-    document.querySelector('.editor-row.text-input').value = gMeme.lines[gMeme.seletedLineIdx].txt
+    document.querySelector('.editor-row.text-input').value = meme.lines[meme.seletedLineIdx].txt
     renderCanvas()
     renderImg()
     drawText()
@@ -296,11 +300,12 @@ function onChoseAnotherLine() {
 }
 
 function drawFrame() {
-    const txt = gMeme.lines[gMeme.seletedLineIdx].txt
+    let meme = getGMeme()
+    const txt = meme.lines[meme.seletedLineIdx].txt
     const wordLenght = txt.length
-    const wordSize = gMeme.lines[gMeme.seletedLineIdx].size
-    const x = gMeme.lines[gMeme.seletedLineIdx].location.x
-    const y = gMeme.lines[gMeme.seletedLineIdx].location.y
+    const wordSize = meme.lines[meme.seletedLineIdx].size
+    const x = meme.lines[meme.seletedLineIdx].location.x
+    const y = meme.lines[meme.seletedLineIdx].location.y
 
     const rectStartX = x - (wordLenght * wordSize * 0.35)
     const rectStartY = y - (wordSize * 1.3)
@@ -352,7 +357,6 @@ function doUploadImg(imgDataUrl, onSuccess) {
     fetch('//ca-upload.com/here/upload.php', { method: 'POST', body: formData })
         .then(res => res.text())
         .then(url => {
-            console.log('url:', url)
             onSuccess(url)
         })
 }
@@ -362,32 +366,37 @@ function onSuccess(uploadedImgUrl) {
     window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}`)
 }
 
-////////////////////////////////////////////////////////////////////////////////
+// sticker slider
 
-var slideIndex = 1;
-showSlides(slideIndex);
+var slideIndex = 1
+showSlides(slideIndex)
 
 function plusSlides(n) {
-    showSlides(slideIndex += n);
+    showSlides(slideIndex += n)
 }
 
 function currentSlide(n) {
-    showSlides(slideIndex = n);
+    showSlides(slideIndex = n)
 }
 
 function showSlides(n) {
-    var i;
-    var slides = document.getElementsByClassName("mySlides");
-    var dots = document.getElementsByClassName("dot");
+    let i
+    var slides = document.getElementsByClassName("mySlides")
+    var dots = document.getElementsByClassName("dot")
+
     if (n > slides.length) { slideIndex = 1 }
+
     if (n < 1) { slideIndex = slides.length }
+
     for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
+        slides[i].style.display = "none"
     }
+
     for (i = 0; i < dots.length; i++) {
-        dots[i].className = dots[i].className.replace(" active", "");
+        dots[i].className = dots[i].className.replace(" active", "")
     }
-    slides[slideIndex - 1].style.display = "block";
-    dots[slideIndex - 1].className += " active";
+
+    slides[slideIndex - 1].style.display = "block"
+    dots[slideIndex - 1].className += " active"
 }
 

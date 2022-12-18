@@ -460,8 +460,6 @@ body.modal-open .modal-screen {
     background-color: #717171;
 }
 
-/* ////////////////////////////////////////////////////////////// */
-
 /* about page */
 /* /////////////////////////////////////////////////////////////// */
 
@@ -571,6 +569,10 @@ footer {
 .stay-in-touch:hover {
     box-shadow: 0px 1.5px;
     transition-duration: 0.9s;
+}
+
+.img-upload {
+    font-weight: 600;
 }
 
 /* /////////////////////////////////////////////////////////////// */
@@ -728,6 +730,15 @@ footer {
         max-height: 300px;
     }
 
+}
+
+@media (max-width: 470px) {
+    .grid-container {
+        margin: 0 auto;
+        grid-template-columns: 140px 140px;
+        gap: 15px;
+        justify-content: center;
+    }
 }
 
 @media (max-width: 380px) {

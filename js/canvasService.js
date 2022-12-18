@@ -52,13 +52,16 @@ let gMeme = {
     ]
 }
 
+function getGCtx() {
+    return gCtx
+}
+
 function getMemesKeywords() {
     const keywords = []
     gImgs.forEach(imgObj => {
         imgObj.keywords.forEach(key => { keywords.push(key) })
     })
     let uniqueKeys = [...new Set(keywords)]
-    console.log(uniqueKeys)
     return uniqueKeys
 }
 
@@ -93,7 +96,6 @@ function getEvPos(ev) {
     }
 
     if (TOUCH_EVS.includes(ev.type)) {
-        console.log('ev:', ev)
         ev.preventDefault()
         ev = ev.changedTouches[0]
         pos = {
